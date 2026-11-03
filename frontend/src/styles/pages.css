@@ -1,0 +1,223 @@
+.page-hero {
+  padding: 4rem 0 3rem;
+  border-bottom: 1px solid var(--line);
+  background:
+    linear-gradient(180deg, var(--brand-mist) 0%, transparent 100%);
+}
+
+.page-hero--compact {
+  padding: 3rem 0 2rem;
+}
+
+.page-hero h1 {
+  font-size: clamp(2rem, 4.5vw, 3rem);
+  max-width: 20ch;
+}
+
+.page-hero__lead {
+  font-size: 1.1rem;
+  max-width: 58ch;
+  margin-bottom: 0;
+}
+
+.home-hero {
+  min-height: calc(100vh - var(--header-h));
+  min-height: calc(100dvh - var(--header-h));
+  display: flex;
+  align-items: center;
+  padding: 3rem 0 4rem;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid var(--line);
+}
+
+.home-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(900px 500px at 85% 15%, rgba(30, 90, 230, 0.18), transparent 55%),
+    radial-gradient(700px 400px at 10% 80%, rgba(30, 90, 230, 0.1), transparent 50%),
+    linear-gradient(135deg, rgba(30, 90, 230, 0.06) 0%, transparent 45%);
+  pointer-events: none;
+}
+
+.home-hero__route {
+  position: absolute;
+  inset: 0;
+  opacity: 0.35;
+  background-image: url("data:image/svg+xml,%3Csvg width='800' height='400' viewBox='0 0 800 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 280 Q200 120 400 220 T800 160' fill='none' stroke='%231E5AE6' stroke-width='2' stroke-dasharray='8 12'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: 50% 60%;
+  background-size: min(120%, 900px);
+  pointer-events: none;
+}
+
+.home-hero__inner {
+  position: relative;
+  z-index: 1;
+}
+
+.home-hero__brand {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(2.5rem, 8vw, 4.5rem);
+  letter-spacing: -0.05em;
+  color: var(--brand);
+  line-height: 1;
+  margin-bottom: 1rem;
+}
+
+.home-hero h1 {
+  font-size: clamp(1.75rem, 4vw, 2.85rem);
+  max-width: 22ch;
+  margin-bottom: 1rem;
+}
+
+.home-hero__lead {
+  font-size: 1.12rem;
+  max-width: 52ch;
+  margin-bottom: 2rem;
+}
+
+.home-hero__ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.home-hero__ctas .btn--outline {
+  background: white;
+}
+
+.split-highlight {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+.check-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.check-list li {
+  position: relative;
+  padding: 0.65rem 0 0.65rem 1.75rem;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink-soft);
+  font-size: 0.98rem;
+}
+
+.check-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 1rem;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--brand);
+}
+
+.flow-visual {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1rem;
+  padding: 1.5rem 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--brand);
+  font-size: clamp(0.85rem, 2.5vw, 1.1rem);
+}
+
+.flow-visual span {
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.flow-arrow {
+  color: var(--brand);
+}
+
+.download-cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.download-cta__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.contact-layout {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+/* Legacy contact-aside helpers removed — Contact page uses styles/contact.css */
+
+.qr-placeholder {
+  margin-top: 1rem;
+  padding: 2rem;
+  border: 2px dashed var(--line);
+  border-radius: var(--radius);
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.9rem;
+  max-width: 280px;
+}
+
+.faq-category {
+  margin-bottom: 3rem;
+}
+
+.faq-category h2 {
+  font-size: 1.35rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--brand-soft);
+  margin-bottom: 0.5rem;
+}
+
+.note-box {
+  padding: 1rem 1.25rem;
+  border-left: 3px solid var(--brand);
+  background: var(--brand-mist);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+}
+
+.legal-draft-banner {
+  background: #FFF8E6;
+  border: 1px solid #E8D4A8;
+  color: #6B4E12;
+  padding: 0.85rem 1rem;
+  border-radius: var(--radius-sm);
+  margin-bottom: 2rem;
+  font-size: 0.92rem;
+}
+
+@media (max-width: 900px) {
+  .split-highlight,
+  .contact-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .home-hero {
+    min-height: auto;
+    padding: 2.5rem 0 3rem;
+  }
+}

@@ -1,0 +1,436 @@
+/* recv (/customers) page */
+
+.trav-page {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+/* ---------- Hero ---------- */
+.trav-hero {
+  position: relative;
+  color: white;
+  isolation: isolate;
+}
+
+.trav-hero__bg {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 55% 70% at 80% 70%, rgba(30, 90, 230, 0.8) 0%, rgba(30, 90, 230, 0.2) 50%, transparent 75%),
+    radial-gradient(ellipse 45% 40% at 5% 0%, rgba(92, 136, 239, 0.35), transparent 70%);
+}
+
+.trav-hero__inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  box-sizing: border-box;
+  margin-inline: auto;
+  padding: calc(var(--header-h) + 2.25rem) 1.75rem 4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+@media (min-width: 640px) {
+  .trav-hero__inner {
+    padding: calc(var(--header-h) + 2.75rem) 2.75rem 5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .trav-hero__inner {
+    max-width: calc(var(--container) + 4rem);
+    padding: calc(var(--header-h) + 3rem) 3.5rem 5.5rem;
+  }
+}
+
+.trav-hero__crumbs {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.trav-hero__crumbs a {
+  color: rgba(255, 255, 255, 0.55);
+  text-decoration: none;
+}
+
+.trav-hero__crumbs a:hover {
+  color: white;
+}
+
+.trav-hero__crumbs > span:last-child {
+  color: rgba(255, 255, 255, 0.95);
+  font-weight: 700;
+}
+
+.trav-hero__title {
+  margin: 1.5rem 0 0;
+  max-width: 48rem;
+  font-size: clamp(2.5rem, 5.5vw, 4.25rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+  color: white;
+}
+
+.trav-hero__title .home-highlight-ring,
+.trav-hero__title .trav-hero__accent {
+  color: #fff !important;
+  -webkit-text-fill-color: #fff;
+}
+
+.trav-hero__lead {
+  margin: 1.5rem auto 0;
+  max-width: 36rem;
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* ---------- Journey ---------- */
+.trav-journey {
+  padding: 3.5rem 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .trav-journey {
+    padding: 4.5rem 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .trav-journey {
+    padding: 5.5rem 2.5rem;
+  }
+}
+
+.trav-journey__grid {
+  width: min(100%, var(--container));
+  margin-inline: auto;
+  display: grid;
+  gap: 3rem;
+}
+
+@media (min-width: 1024px) {
+  .trav-journey__grid {
+    grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+    gap: 3.5rem;
+    align-items: start;
+  }
+}
+
+@media (min-width: 1024px) {
+  .trav-journey__sticky {
+    position: sticky;
+    top: 1.5rem;
+  }
+}
+
+.trav-journey__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  border-radius: 999px;
+  background: var(--lilac-100, #e9edfc);
+  padding: 0.25rem 0.75rem 0.25rem 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--ink-700, #2a3150);
+}
+
+.trav-journey__badge > span {
+  display: grid;
+  place-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 999px;
+  background: var(--ink);
+  font-size: 0.7rem;
+  color: white;
+}
+
+.trav-journey__title {
+  margin: 1.5rem 0 0;
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+}
+
+.trav-journey__title .serif-accent {
+  color: var(--brand);
+}
+
+.trav-journey__roles {
+  margin-top: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.trav-journey__role-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.trav-journey__role {
+  display: inline-flex;
+  border-radius: 999px;
+  background: var(--lilac-100, #e9edfc);
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--ink-700, #2a3150);
+  text-decoration: none;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.trav-journey__role:hover,
+.trav-journey__role.is-current {
+  background: var(--brand);
+  color: white;
+}
+
+.trav-journey__role-arrow {
+  display: grid;
+  place-items: center;
+  color: var(--ink-400, #8a91ac);
+}
+
+.trav-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.trav-step {
+  position: relative;
+  display: flex;
+  gap: 1.5rem;
+  padding-bottom: 2.25rem;
+}
+
+.trav-step:last-child {
+  padding-bottom: 0.5rem;
+}
+
+.trav-step__line {
+  position: absolute;
+  left: 1.5rem;
+  top: 3.5rem;
+  bottom: 0;
+  width: 1px;
+  background: var(--lilac-200, #dce3fc);
+}
+
+.trav-step__num {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 999px;
+  background: white;
+  color: var(--brand);
+  box-shadow: inset 0 0 0 1px var(--lilac-200, #dce3fc);
+  font-size: 0.875rem;
+  font-weight: 800;
+}
+
+.trav-step__num--filled {
+  background: var(--brand);
+  color: white;
+  box-shadow: 0 14px 30px -10px rgba(30, 90, 230, 0.65);
+}
+
+.trav-step__body {
+  padding-top: 0.55rem;
+}
+
+.trav-step__body h3 {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+
+.trav-step__body p {
+  margin: 0.4rem 0 0;
+  max-width: 36rem;
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+/* ---------- Why ---------- */
+.trav-why {
+  position: relative;
+  color: white;
+  isolation: isolate;
+  padding: 3.5rem 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .trav-why {
+    padding: 4.5rem 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .trav-why {
+    padding: 5.5rem 2.5rem;
+  }
+}
+
+.trav-why__bg {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: radial-gradient(ellipse 55% 70% at 90% 40%, rgba(30, 90, 230, 0.7), transparent 70%);
+}
+
+.trav-why__inner {
+  position: relative;
+  z-index: 1;
+  width: min(100%, var(--container));
+  margin-inline: auto;
+}
+
+.trav-why__title {
+  margin: 0;
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  color: #fff;
+}
+
+.trav-why__title .serif-accent {
+  color: #d3f36b;
+  font-style: italic;
+}
+
+.trav-why__grid {
+  margin-top: 3rem;
+  display: grid;
+  gap: 2.5rem;
+}
+
+@media (min-width: 640px) {
+  .trav-why__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .trav-why__grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0;
+  }
+
+  .trav-why__card {
+    padding: 0 1.5rem;
+    border-left: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  .trav-why__card:first-child {
+    padding-left: 0;
+    border-left: 0;
+  }
+
+  .trav-why__card:last-child {
+    padding-right: 0;
+  }
+}
+
+.trav-why__icon {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.25);
+  color: white;
+}
+
+.trav-why__card h3 {
+  margin: 1.5rem 0 0;
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #fff;
+}
+
+.trav-why__card p {
+  margin: 0.5rem 0 0;
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* ---------- FAQ ---------- */
+.trav-faq {
+  padding: 3.5rem 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .trav-faq {
+    padding: 4.5rem 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .trav-faq {
+    padding: 5.5rem 2.5rem;
+  }
+}
+
+.trav-faq__grid {
+  width: min(100%, var(--container));
+  margin-inline: auto;
+  display: grid;
+  gap: 2.5rem;
+}
+
+@media (min-width: 1024px) {
+  .trav-faq__grid {
+    grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+    gap: 3rem;
+    align-items: start;
+  }
+}
+
+.trav-faq__title {
+  margin: 0;
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+}
+
+.trav-faq__title .serif-accent {
+  color: var(--brand);
+}

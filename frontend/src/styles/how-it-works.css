@@ -1,0 +1,360 @@
+/* How it works page */
+
+.hiw-page {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+/* ---------- Hero ---------- */
+.hiw-hero {
+  position: relative;
+  color: white;
+  isolation: isolate;
+}
+
+.hiw-hero__bg {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 55% 70% at 80% 70%, rgba(30, 90, 230, 0.8) 0%, rgba(30, 90, 230, 0.2) 50%, transparent 75%),
+    radial-gradient(ellipse 45% 40% at 5% 0%, rgba(92, 136, 239, 0.35), transparent 70%);
+}
+
+.hiw-hero__inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  box-sizing: border-box;
+  margin-inline: auto;
+  padding: calc(var(--header-h) + 2.25rem) 1.75rem 4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+@media (min-width: 640px) {
+  .hiw-hero__inner {
+    padding: calc(var(--header-h) + 2.75rem) 2.75rem 5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hiw-hero__inner {
+    max-width: calc(var(--container) + 4rem);
+    padding: calc(var(--header-h) + 3rem) 3.5rem 5.5rem;
+  }
+}
+
+.hiw-hero__crumbs {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.hiw-hero__crumbs a {
+  color: rgba(255, 255, 255, 0.55);
+  text-decoration: none;
+}
+
+.hiw-hero__crumbs a:hover {
+  color: white;
+}
+
+.hiw-hero__crumbs > span:last-child {
+  color: rgba(255, 255, 255, 0.95);
+  font-weight: 700;
+}
+
+.hiw-hero__title {
+  margin: 1.5rem 0 0;
+  font-size: clamp(2.5rem, 5.5vw, 4.25rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+  color: white;
+}
+
+.hiw-hero__title .home-highlight-ring,
+.hiw-hero__title .hiw-hero__accent {
+  color: #fff !important;
+  -webkit-text-fill-color: #fff;
+}
+
+.hiw-hero__lead {
+  margin: 1.5rem auto 0;
+  max-width: 36rem;
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* ---------- Flow ---------- */
+.hiw-flow {
+  padding: 3.5rem 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .hiw-flow {
+    padding: 4.5rem 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hiw-flow {
+    padding: 5.5rem 2.5rem;
+  }
+}
+
+.hiw-flow__grid {
+  width: min(100%, var(--container));
+  margin-inline: auto;
+  display: grid;
+  gap: 3rem;
+}
+
+@media (min-width: 1024px) {
+  .hiw-flow__grid {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: 3.5rem;
+    align-items: start;
+  }
+}
+
+.hiw-flow__sticky {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+@media (min-width: 1024px) {
+  .hiw-flow__sticky {
+    position: sticky;
+    top: 1.5rem;
+  }
+}
+
+.hiw-flow__title {
+  margin: 0;
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+}
+
+.hiw-flow__arrow {
+  color: var(--brand);
+  margin: 0 0.15em;
+}
+
+.hiw-flow__title .serif-accent {
+  color: var(--brand);
+}
+
+.hiw-flow__lead {
+  margin: 1.5rem 0 0;
+  max-width: 28rem;
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--muted);
+}
+
+.hiw-flow__roles {
+  margin-top: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.hiw-flow__role-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.hiw-flow__role {
+  display: inline-flex;
+  border-radius: 999px;
+  background: var(--lilac-100, #e9edfc);
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--ink-700, #2a3150);
+  text-decoration: none;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.hiw-flow__role:hover {
+  background: var(--brand);
+  color: white;
+}
+
+.hiw-flow__role-arrow {
+  display: grid;
+  place-items: center;
+  color: var(--ink-400, #8a91ac);
+}
+
+/* ---------- Steps ---------- */
+.hiw-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.hiw-step {
+  position: relative;
+  display: flex;
+  gap: 1.5rem;
+  padding-bottom: 2.5rem;
+}
+
+.hiw-step:last-child {
+  padding-bottom: 0.5rem;
+}
+
+.hiw-step__line {
+  position: absolute;
+  left: 1.5rem;
+  top: 3.5rem;
+  bottom: 0;
+  width: 1px;
+  background: var(--lilac-200, #dce3fc);
+}
+
+.hiw-step__num {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 999px;
+  background: white;
+  color: var(--brand);
+  box-shadow: inset 0 0 0 1px var(--lilac-200, #dce3fc);
+  font-size: 0.875rem;
+  font-weight: 800;
+}
+
+.hiw-step__num--filled {
+  background: var(--brand);
+  color: white;
+  box-shadow: 0 14px 30px -10px rgba(30, 90, 230, 0.65);
+}
+
+.hiw-step__body {
+  padding-top: 0.55rem;
+}
+
+.hiw-step__body h3 {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+
+.hiw-step__body p {
+  margin: 0.4rem 0 0;
+  max-width: 36rem;
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+/* ---------- Details ---------- */
+.hiw-details {
+  position: relative;
+  color: white;
+  isolation: isolate;
+  padding: 3.5rem 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .hiw-details {
+    padding: 4.5rem 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hiw-details {
+    padding: 5.5rem 2.5rem;
+  }
+}
+
+.hiw-details__bg {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: radial-gradient(ellipse 55% 70% at 90% 40%, rgba(30, 90, 230, 0.7), transparent 70%);
+}
+
+.hiw-details__grid {
+  position: relative;
+  z-index: 1;
+  width: min(100%, var(--container));
+  margin-inline: auto;
+  display: grid;
+  gap: 2.5rem;
+}
+
+@media (min-width: 900px) {
+  .hiw-details__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0;
+  }
+
+  .hiw-detail {
+    padding: 0 2rem;
+    border-left: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  .hiw-detail:first-child {
+    padding-left: 0;
+    border-left: 0;
+  }
+
+  .hiw-detail:last-child {
+    padding-right: 0;
+  }
+}
+
+.hiw-detail__icon {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.25);
+  color: white;
+}
+
+.hiw-detail h3 {
+  margin: 1.5rem 0 0;
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #fff;
+}
+
+.hiw-detail p {
+  margin: 0.75rem 0 0;
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.7);
+}
