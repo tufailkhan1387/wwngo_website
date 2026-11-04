@@ -304,6 +304,11 @@
   overflow: hidden;
 }
 
+/* Override legacy pages.css hero padding so the phone runs off the bottom edge */
+.home-page .home-hero {
+  padding-bottom: 0;
+}
+
 .home-hero__bg {
   pointer-events: none;
   position: absolute;
@@ -477,7 +482,7 @@
 .home-hero__product-stage {
   position: relative;
   display: flex;
-  align-items: flex-end;
+  align-items: flex-start;
   justify-content: center;
   gap: 0;
   width: 100%;
@@ -495,9 +500,8 @@
   display: none;
   flex-direction: column;
   gap: 0.7rem;
-  align-self: flex-end;
+  align-self: flex-start;
   margin-right: 3.5rem;
-  margin-bottom: 5.5rem;
 }
 
 @media (min-width: 1024px) {
@@ -512,9 +516,8 @@
   width: 15rem;
   flex-shrink: 0;
   display: none;
-  align-self: flex-end;
+  align-self: flex-start;
   margin-left: 3.5rem;
-  margin-bottom: 6.25rem;
 }
 
 @media (min-width: 1024px) {
@@ -658,9 +661,10 @@
   position: relative;
   z-index: 10;
   flex-shrink: 0;
-  align-self: flex-end;
+  align-self: flex-start;
   width: min(270px, 84vw);
-  margin-bottom: 0;
+  /* Extend past the hero's bottom edge so the panel clips it (reference) */
+  margin-bottom: -3.5rem;
   border-radius: 40px 40px 0 0;
   border-style: solid;
   border-color: rgba(255, 255, 255, 0.92);
@@ -741,7 +745,11 @@
   color: var(--brand);
 }
 
-.home-hero__route {
+.home-hero__phone .home-hero__route {
+  position: static;
+  inset: auto;
+  opacity: 1;
+  background: none;
   margin-top: 0.75rem;
   display: flex;
   align-items: center;
@@ -807,12 +815,11 @@
 .home-hero__phone-sky {
   position: relative;
   margin-top: 0.9rem;
-  margin-inline: -0.9rem;
   margin-bottom: 0;
-  width: calc(100% + 1.8rem);
+  width: 100%;
   height: 10.5rem;
   overflow: hidden;
-  border-radius: 1.25rem 1.25rem 0 0;
+  border-radius: 1.25rem;
 }
 
 @media (min-width: 1024px) {
@@ -945,7 +952,7 @@
 
 .home-hero__nfc {
   margin-top: 1rem;
-  margin-left: 0;
+  margin-left: auto;
   display: flex;
   width: fit-content;
   align-items: center;
@@ -974,8 +981,8 @@
   position: absolute;
   bottom: -1px;
   left: 50%;
-  /* In front of phone — clean cut like reference image 1 */
-  z-index: 25;
+  /* Behind the phone — phone overlaps the curve like the reference */
+  z-index: 5;
   display: none;
   width: min(760px, 92%);
   height: var(--home-hero-notch-h);
@@ -992,12 +999,10 @@
 @media (min-width: 1024px) {
   .home-hero__side-left {
     margin-right: 4rem;
-    margin-bottom: 6rem;
   }
 
   .home-hero__side-right {
     margin-left: 4rem;
-    margin-bottom: 6.75rem;
   }
 }
 
@@ -1013,13 +1018,11 @@
   .home-hero__side-left {
     width: 15rem;
     margin-right: 4.75rem;
-    margin-bottom: 6.5rem;
   }
 
   .home-hero__side-right {
     width: 15.75rem;
     margin-left: 4.75rem;
-    margin-bottom: 7.25rem;
   }
 
   .home-hero {
