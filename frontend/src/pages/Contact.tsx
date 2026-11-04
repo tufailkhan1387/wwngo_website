@@ -95,11 +95,16 @@ export function Contact() {
 
   const validate = () => {
     const next: Partial<Record<keyof FormState, string>> = {};
+    // Minimum lengths match backend/src/routes/contact.js
+    const minChars = (n: number) => t.common.minChars.replace('{n}', String(n));
     if (!form.name.trim()) next.name = t.common.required;
+    else if (form.name.trim().length < 2) next.name = minChars(2);
     if (!form.email.trim()) next.email = t.common.required;
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) next.email = t.common.required;
     if (!form.subject.trim()) next.subject = t.common.required;
+    else if (form.subject.trim().length < 3) next.subject = minChars(3);
     if (!form.message.trim()) next.message = t.common.required;
+    else if (form.message.trim().length < 10) next.message = minChars(10);
     setErrors(next);
     return Object.keys(next).length === 0;
   };

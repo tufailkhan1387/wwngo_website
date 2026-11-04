@@ -58,6 +58,7 @@ export type TranslationTree = {
     viewAllFaq: string;
     sendMessage: string;
     required: string;
+    minChars: string;
     successContact: string;
     errorContact: string;
     name: string;

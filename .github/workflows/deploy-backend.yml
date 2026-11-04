@@ -30,7 +30,7 @@ jobs:
       - name: Write production .env
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
-          CORS_ORIGIN: ${{ vars.CORS_ORIGIN || 'https://wwngo.com' }}
+          CORS_ORIGIN: ${{ vars.CORS_ORIGIN || 'https://wwngo.com,https://www.wwngo.com' }}
           WATI_API_KEY: ${{ secrets.WATI_API_KEY }}
           WATI_NOTIFY_TO: ${{ vars.WATI_NOTIFY_TO }}
         run: |

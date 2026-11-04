@@ -12,11 +12,15 @@ const pool = require('./db/pool');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-const CORS_ORIGIN = process.env.CORS_ORIGIN || 'http://localhost:5173';
+// Comma-separated list, e.g. "https://wwngo.com,https://www.wwngo.com"
+const CORS_ORIGINS = (process.env.CORS_ORIGIN || 'http://localhost:5173')
+  .split(',')
+  .map((o) => o.trim())
+  .filter(Boolean);
 
 app.use(
   cors({
-    origin: CORS_ORIGIN,
+    origin: CORS_ORIGINS,
   }),
 );
 app.use(express.json({ limit: '100kb' }));

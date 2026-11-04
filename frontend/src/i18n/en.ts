@@ -32,6 +32,7 @@ export const en: TranslationTree = {
     viewAllFaq: 'View all FAQ',
     sendMessage: 'Send message',
     required: 'Required',
+    minChars: 'Please enter at least {n} characters.',
     successContact: 'Thank you, your message was sent. We will respond as soon as possible.',
     errorContact: 'Something went wrong. Please try again or email us directly.',
     name: 'Full name',
