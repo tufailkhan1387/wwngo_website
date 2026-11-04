@@ -70,21 +70,21 @@
   place-items: center;
   width: 2.5rem;
   height: 2.5rem;
-  border-radius: 999px;
-  background: var(--brand);
-  color: white;
+  border-radius: 0.7rem;
+  background: transparent;
   overflow: hidden;
+  flex-shrink: 0;
 }
 
-.site-logo__icon svg {
-  width: 2.05rem;
-  height: 2.05rem;
+.site-logo__icon img {
+  width: 100%;
+  height: 100%;
   display: block;
+  object-fit: contain;
 }
 
 .site-header--home .site-logo__icon {
-  background: white;
-  color: var(--brand);
+  background: transparent;
 }
 
 .site-nav {
@@ -483,8 +483,7 @@
 }
 
 .footer-brand .site-logo__icon {
-  background: var(--brand);
-  color: white;
+  background: transparent;
 }
 
 .footer-brand p {
@@ -545,7 +544,7 @@
 
 .store-footer-btn__name {
   font-size: 0.9rem;
-  font-weight: 800;
+  font-weight: 600;
   letter-spacing: -0.02em;
   color: #fff;
 }
@@ -612,11 +611,39 @@
   font-weight: 700;
 }
 
-.footer-social-note {
-  margin: 1rem 0 0;
-  font-size: 0.75rem;
-  font-style: italic;
-  color: var(--ink-400);
+.footer-social {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.65rem;
+  margin: 1.1rem 0 0;
+}
+
+.footer-social__link {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 999px;
+  background: var(--lilac-100);
+  color: var(--indigo-950);
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.footer-social__link svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  display: block;
+}
+
+.footer-social__link svg:not([fill='none']) {
+  fill: currentColor;
+}
+
+.footer-social__link:hover {
+  background: var(--brand-soft);
+  color: var(--brand);
+  transform: translateY(-1px);
 }
 
 .footer-wordmark {

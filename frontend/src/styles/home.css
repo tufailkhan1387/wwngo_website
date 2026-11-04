@@ -114,6 +114,8 @@
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
+  width: fit-content;
+  max-width: 100%;
   border-radius: 999px;
   padding: 0.25rem 0.75rem 0.25rem 0.25rem;
   font-size: 0.75rem;
@@ -358,15 +360,28 @@
   color: #c5d5fb;
 }
 
-.home-hero h1 {
+/* Match index_2.html: text-[2.6rem] sm:text-6xl lg:text-[4.5rem] font-extrabold */
+.home-page .home-hero h1 {
   margin: 1.5rem auto 0;
-  max-width: 52rem;
-  font-size: clamp(2.4rem, 5.5vw, 4.25rem);
+  max-width: 56rem;
+  font-size: 2.6rem;
   font-weight: 800;
   line-height: 1.05;
   letter-spacing: -0.035em;
   color: white;
   text-align: center;
+}
+
+@media (min-width: 640px) {
+  .home-page .home-hero h1 {
+    font-size: 3.75rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .home-page .home-hero h1 {
+    font-size: 4.5rem;
+  }
 }
 
 .home-hero__trust {
@@ -424,14 +439,15 @@
 
 .home-hero__lead {
   margin: 1.5rem auto 0;
-  max-width: 36rem;
+  max-width: 42rem;
   font-size: 1rem;
   line-height: 1.65;
   color: rgba(255, 255, 255, 0.7);
+  text-align: center;
 }
 
 .home-hero__ctas {
-  margin-top: 2rem;
+  margin-top: 1.15rem;
   display: flex;
   flex-wrap: wrap;
   align-items: center;

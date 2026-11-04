@@ -140,17 +140,32 @@ export function Home() {
           </Reveal>
           <Reveal delay={0.05}>
             <h1>
-              {heroHead}
-              {heroTailText ? (
+              {lang === 'en' ? (
                 <>
-                  {' '}
+                  Send parcels across
+                  <br />
+                  borders with travelers
+                  <br />
                   <span className="home-hero__trust">
-                    {heroTailText}
+                    you can trust
                     {HeroIcons}
                   </span>
                 </>
               ) : (
-                HeroIcons
+                <>
+                  {heroHead}
+                  {heroTailText ? (
+                    <>
+                      {' '}
+                      <span className="home-hero__trust">
+                        {heroTailText}
+                        {HeroIcons}
+                      </span>
+                    </>
+                  ) : (
+                    HeroIcons
+                  )}
+                </>
               )}
             </h1>
           </Reveal>

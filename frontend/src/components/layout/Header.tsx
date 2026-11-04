@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { useLanguage } from '../../context/LanguageContext';
-import { BrandLogoIcon } from '../ui/BrandLogoIcon';
+import logoWhite from '../../images/wwngo Logo Design White.png';
 import '../../styles/layout.css';
 
 function LangSwitch({ variant = 'default' }: { variant?: 'default' | 'home' | 'footer' }) {
@@ -87,7 +87,7 @@ export function Header() {
       <div className="container site-header__inner">
         <Link className="site-logo" to="/" aria-label={`${t.common.brand} home`}>
           <span className="site-logo__icon">
-            <BrandLogoIcon size={28} />
+            <img src={logoWhite} alt="" width={40} height={40} />
           </span>
           <span className="site-logo__text">{t.common.brand}</span>
         </Link>
