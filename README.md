@@ -71,6 +71,7 @@ Migrations: add numbered SQL files to `backend/migrations/` (e.g. `002_add_phone
 
 Required repo secrets for the backend: `SSH_PRIVATE_KEY` (key authorized for the `wwngo` user) and `DATABASE_URL`.
 Optional repo variables: `SSH_HOST`, `SSH_USER`, `SSH_PORT`, `BACKEND_PORT`, `CORS_ORIGIN`, `BACKEND_PUBLIC_URL`.
+WhatsApp alert on each contact submission (Wati): secret `WATI_API_KEY` + variable `WATI_NOTIFY_TO` (number with country code, no `+`). Leave unset to disable.
 Set the frontend variable `VITE_API_URL=https://wwngo.com/backend` so the contact form calls the live API.
 
 ## Pages

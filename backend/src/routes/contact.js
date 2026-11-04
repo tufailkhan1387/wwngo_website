@@ -1,5 +1,6 @@
 const express = require('express');
 const pool = require('../db/pool');
+const { notifyWhatsApp } = require('../lib/whatsapp');
 
 const router = express.Router();
 
@@ -39,6 +40,18 @@ router.post('/', async (req, res) => {
        VALUES ($1, $2, $3, $4, $5)
        RETURNING id, created_at`,
       [data.name, data.email, data.subject, data.message, data.inquiryType],
+    );
+
+    notifyWhatsApp(
+      [
+        'New WWNGO contact message',
+        `Name: ${data.name}`,
+        `Email: ${data.email}`,
+        `Type: ${data.inquiryType}`,
+        `Subject: ${data.subject}`,
+        '',
+        data.message.slice(0, 1000),
+      ].join('\n'),
     );
 
     return res.status(201).json({

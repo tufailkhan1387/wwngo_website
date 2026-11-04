@@ -31,10 +31,13 @@ jobs:
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           CORS_ORIGIN: ${{ vars.CORS_ORIGIN || 'https://wwngo.com' }}
+          WATI_API_KEY: ${{ secrets.WATI_API_KEY }}
+          WATI_NOTIFY_TO: ${{ vars.WATI_NOTIFY_TO }}
         run: |
           if [ -z "$DATABASE_URL" ]; then echo "::error::Secret DATABASE_URL is not set"; exit 1; fi
           umask 077
-          printf 'PORT=%s\nCORS_ORIGIN=%s\nDATABASE_URL=%s\n' "$APP_PORT" "$CORS_ORIGIN" "$DATABASE_URL" > backend/.env
+          printf 'PORT=%s\nCORS_ORIGIN=%s\nDATABASE_URL=%s\nWATI_API_KEY=%s\nWATI_NOTIFY_TO=%s\n' \
+            "$APP_PORT" "$CORS_ORIGIN" "$DATABASE_URL" "$WATI_API_KEY" "$WATI_NOTIFY_TO" > backend/.env
 
       - name: Set up SSH
         env:
