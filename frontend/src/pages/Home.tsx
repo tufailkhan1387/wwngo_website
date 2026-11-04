@@ -172,9 +172,9 @@ export function Home() {
           </Reveal>
         </div>
 
-        <div className="home-hero__product">
+        <div className="home-hero__product" aria-hidden="true">
           <div className="home-hero__product-stage">
-            <div className="home-hero__side-left" aria-hidden="true">
+            <div className="home-hero__side-left">
               <div className="home-hero__float-a home-glass home-hero__glass-card">
                 <div className="home-hero__card-row">
                   <p className="home-hero__card-label">Traveler profile</p>
@@ -209,7 +209,7 @@ export function Home() {
               </div>
             </div>
 
-            <div className="home-hero__phone" aria-hidden="true">
+            <div className="home-hero__phone">
               <div className="home-hero__phone-inner">
                 <div className="home-hero__phone-top">
                   <span className="home-hero__phone-brand">WWNGO</span>
@@ -246,7 +246,7 @@ export function Home() {
               </div>
             </div>
 
-            <div className="home-hero__side-right" aria-hidden="true">
+            <div className="home-hero__side-right">
               <div className="home-hero__float-b home-glass-blue home-hero__glass-card home-hero__escrow">
                 <span className="home-hero__escrow-badge">
                   <span>

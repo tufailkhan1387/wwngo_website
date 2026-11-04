@@ -291,10 +291,15 @@
 
 /* Hero */
 .home-hero {
+  --home-hero-notch-h: 64px;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   color: white;
   padding-bottom: 0;
   isolation: isolate;
+  overflow: hidden;
 }
 
 .home-hero__bg {
@@ -311,17 +316,28 @@
 .home-hero__copy {
   position: relative;
   z-index: 10;
-  text-align: center;
-  padding: calc(var(--header-h) + 2rem) 1.25rem 0;
-  max-width: var(--container);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 56rem;
   margin-inline: auto;
+  padding: calc(var(--header-h) + 2rem) 1.25rem 0;
+  text-align: center;
 }
 
 @media (min-width: 1024px) {
   .home-hero__copy {
-    padding-top: calc(var(--header-h) + 2.5rem);
+    padding-top: calc(var(--header-h) + 2.75rem);
     padding-inline: 2rem;
   }
+}
+
+.home-hero__copy > .reveal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
 
 .home-hero__badge {
@@ -344,12 +360,13 @@
 
 .home-hero h1 {
   margin: 1.5rem auto 0;
-  max-width: 56rem;
-  font-size: clamp(2.6rem, 6vw, 4.5rem);
+  max-width: 52rem;
+  font-size: clamp(2.4rem, 5.5vw, 4.25rem);
   font-weight: 800;
   line-height: 1.05;
   letter-spacing: -0.035em;
   color: white;
+  text-align: center;
 }
 
 .home-hero__trust {
@@ -425,36 +442,46 @@
 .home-hero__product {
   position: relative;
   z-index: 10;
-  margin: 3.5rem auto 0;
-  max-width: var(--container);
-  padding: 0 1.25rem;
+  width: 100%;
+  margin: 2rem auto 0;
+  max-width: 64rem;
+  padding: 0 1rem;
+  /* Sit on the bottom white notch line */
+  margin-bottom: 0;
 }
 
 @media (min-width: 1024px) {
   .home-hero__product {
-    padding-inline: 2rem;
+    margin-top: 2.25rem;
+    padding-inline: 1.5rem;
   }
 }
 
+/* Reference layout: left cards | phone | right cards — spaced, no overlap */
 .home-hero__product-stage {
   position: relative;
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  max-width: 1000px;
+  gap: 0;
+  width: 100%;
+  max-width: 980px;
   margin-inline: auto;
-  min-height: 460px;
+  min-height: 0;
+  padding-bottom: 0;
 }
 
 .home-hero__side-left {
-  position: absolute;
-  left: 0;
-  top: 1.5rem;
-  z-index: 20;
-  width: 240px;
+  position: relative;
+  z-index: 30;
+  width: 14.5rem;
+  flex-shrink: 0;
   display: none;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 0.7rem;
+  align-self: flex-end;
+  margin-right: 3.5rem;
+  margin-bottom: 5.5rem;
 }
 
 @media (min-width: 1024px) {
@@ -464,12 +491,14 @@
 }
 
 .home-hero__side-right {
-  position: absolute;
-  right: 0;
-  top: 0;
-  z-index: 20;
-  width: 250px;
+  position: relative;
+  z-index: 30;
+  width: 15rem;
+  flex-shrink: 0;
   display: none;
+  align-self: flex-end;
+  margin-left: 3.5rem;
+  margin-bottom: 6.25rem;
 }
 
 @media (min-width: 1024px) {
@@ -492,10 +521,15 @@
 }
 
 .home-hero__glass-card {
-  border-radius: 1.5rem;
-  padding: 1.25rem;
+  border-radius: 1.35rem;
+  padding: 1.15rem 1.2rem;
   color: var(--ink);
   box-shadow: var(--shadow-glass);
+}
+
+.home-hero__escrow.home-hero__glass-card {
+  border-radius: 1.5rem;
+  padding: 1.2rem 1.25rem 1.1rem;
 }
 
 .home-hero__card-row {
@@ -556,14 +590,15 @@
 .home-hero__skeleton {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  border-radius: 1rem;
-  padding: 0.75rem;
+  gap: 0.7rem;
+  border-radius: 1.1rem;
+  padding: 0.7rem 0.8rem;
   box-shadow: var(--shadow-glass);
 }
 
 .home-hero__skeleton--offset {
-  margin-left: 2.5rem;
+  margin-left: 1.75rem;
+  width: calc(100% - 1.75rem);
 }
 
 .home-hero__skel-avatar {
@@ -606,24 +641,33 @@
 .home-hero__phone {
   position: relative;
   z-index: 10;
-  width: min(290px, 88vw);
-  border-radius: 44px 44px 0 0;
+  flex-shrink: 0;
+  align-self: flex-end;
+  width: min(270px, 84vw);
+  margin-bottom: 0;
+  border-radius: 40px 40px 0 0;
   border-style: solid;
-  border-color: rgba(255, 255, 255, 0.9);
-  border-width: 10px 10px 0;
+  border-color: rgba(255, 255, 255, 0.92);
+  border-width: 9px 9px 0;
   background: white;
   box-shadow: var(--shadow-lift);
 }
 
 @media (min-width: 640px) {
   .home-hero__phone {
-    width: 320px;
+    width: 290px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .home-hero__phone {
+    width: 300px;
   }
 }
 
 .home-hero__phone-inner {
-  border-radius: 34px 34px 0 0;
-  padding: 1rem 1rem 0;
+  border-radius: 31px 31px 0 0;
+  padding: 0.9rem 0.9rem 0;
   background: var(--lilac-50);
   color: var(--ink);
 }
@@ -656,21 +700,21 @@
 }
 
 .home-hero__phone-tab {
-  margin-top: 1rem;
+  margin-top: 0.85rem;
   border-radius: 999px;
   background: white;
-  padding: 0.5rem 1rem;
+  padding: 0.45rem 0.9rem;
   text-align: center;
-  font-size: 0.71875rem;
+  font-size: 0.6875rem;
   font-weight: 700;
   color: var(--ink-soft);
   box-shadow: var(--shadow-soft);
 }
 
 .home-hero__phone-title {
-  margin: 1.25rem 0 0;
+  margin: 1rem 0 0;
   padding-inline: 0.25rem;
-  font-size: 1.375rem;
+  font-size: 1.25rem;
   font-weight: 800;
   line-height: 1.2;
   letter-spacing: -0.02em;
@@ -708,13 +752,13 @@
 }
 
 .home-hero__status {
-  margin-top: 1rem;
+  margin-top: 0.85rem;
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  border-radius: 1rem;
+  gap: 0.65rem;
+  border-radius: 0.9rem;
   background: white;
-  padding: 0.75rem;
+  padding: 0.65rem;
   box-shadow: var(--shadow-soft);
 }
 
@@ -746,10 +790,19 @@
 
 .home-hero__phone-sky {
   position: relative;
-  margin-top: 1rem;
-  height: 10rem;
+  margin-top: 0.9rem;
+  margin-inline: -0.9rem;
+  margin-bottom: 0;
+  width: calc(100% + 1.8rem);
+  height: 10.5rem;
   overflow: hidden;
-  border-radius: 1.5rem 1.5rem 0 0;
+  border-radius: 1.25rem 1.25rem 0 0;
+}
+
+@media (min-width: 1024px) {
+  .home-hero__phone-sky {
+    height: 11.5rem;
+  }
 }
 
 .home-hero__cloud {
@@ -876,7 +929,7 @@
 
 .home-hero__nfc {
   margin-top: 1rem;
-  margin-left: auto;
+  margin-left: 0;
   display: flex;
   width: fit-content;
   align-items: center;
@@ -905,10 +958,11 @@
   position: absolute;
   bottom: -1px;
   left: 50%;
-  z-index: 1;
+  /* In front of phone — clean cut like reference image 1 */
+  z-index: 25;
   display: none;
   width: min(760px, 92%);
-  height: 64px;
+  height: var(--home-hero-notch-h);
   transform: translateX(-50%);
   color: var(--page);
 }
@@ -920,9 +974,52 @@
 }
 
 @media (min-width: 1024px) {
+  .home-hero__side-left {
+    margin-right: 4rem;
+    margin-bottom: 6rem;
+  }
+
+  .home-hero__side-right {
+    margin-left: 4rem;
+    margin-bottom: 6.75rem;
+  }
+}
+
+@media (min-width: 1180px) {
+  .home-hero__product {
+    max-width: 72rem;
+  }
+
   .home-hero__product-stage {
-    min-height: 520px;
-    padding-bottom: 1.5rem;
+    max-width: 1120px;
+  }
+
+  .home-hero__side-left {
+    width: 15rem;
+    margin-right: 4.75rem;
+    margin-bottom: 6.5rem;
+  }
+
+  .home-hero__side-right {
+    width: 15.75rem;
+    margin-left: 4.75rem;
+    margin-bottom: 7.25rem;
+  }
+
+  .home-hero {
+    --home-hero-notch-h: 72px;
+  }
+
+  .home-hero__phone {
+    width: 305px;
+  }
+
+  .home-hero__phone-sky {
+    height: 12rem;
+  }
+
+  .home-hero__notch {
+    width: min(820px, 90%);
   }
 }
 
