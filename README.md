@@ -62,6 +62,17 @@ Endpoints:
 - `GET /api/health`
 - `POST /api/contact` — stores contact form submissions
 
+Migrations: add numbered SQL files to `backend/migrations/` (e.g. `002_add_phone.sql`). `npm run migrate` applies pending ones once each, tracked in `schema_migrations`.
+
+## Deployment (GitHub Actions)
+
+- `frontend/**` changes → `deploy-frontend.yml` builds and FTP-uploads to `public_html/`.
+- `backend/**` changes → `deploy-backend.yml` uploads the API over SSH to `~/wwngo-backend`, runs `npm ci` + `npm run migrate`, restarts it with pm2 (port `5055`), and proxies `https://wwngo.com/backend/*` to it via `public_html/backend/.htaccess`.
+
+Required repo secrets for the backend: `SSH_PRIVATE_KEY` (key authorized for the `wwngo` user) and `DATABASE_URL`.
+Optional repo variables: `SSH_HOST`, `SSH_USER`, `SSH_PORT`, `BACKEND_PORT`, `CORS_ORIGIN`, `BACKEND_PUBLIC_URL`.
+Set the frontend variable `VITE_API_URL=https://wwngo.com/backend` so the contact form calls the live API.
+
 ## Pages
 
 Home · About · How It Works · For Customers · For Travelers · For Receivers · Features · Safety & Security · FAQ · Contact · Download App · Legal (Privacy, Terms, Cookies, Safety Rules, Prohibited Items, Refund)

@@ -1,0 +1,65 @@
+name: Deploy backend
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'backend/**'
+      - '.github/workflows/deploy-backend.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-backend
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      SSH_HOST: ${{ vars.SSH_HOST || 'wwngo.com' }}
+      SSH_USER: ${{ vars.SSH_USER || 'wwngo' }}
+      SSH_PORT: ${{ vars.SSH_PORT || '22' }}
+      APP_DIR: ${{ vars.BACKEND_APP_DIR || 'wwngo-backend' }}
+      APP_PORT: ${{ vars.BACKEND_PORT || '5055' }}
+      PROXY_DIR: ${{ vars.BACKEND_PROXY_DIR || 'public_html/backend' }}
+      PUBLIC_URL: ${{ vars.BACKEND_PUBLIC_URL || 'https://wwngo.com/backend' }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Write production .env
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          CORS_ORIGIN: ${{ vars.CORS_ORIGIN || 'https://wwngo.com' }}
+        run: |
+          if [ -z "$DATABASE_URL" ]; then echo "::error::Secret DATABASE_URL is not set"; exit 1; fi
+          umask 077
+          printf 'PORT=%s\nCORS_ORIGIN=%s\nDATABASE_URL=%s\n' "$APP_PORT" "$CORS_ORIGIN" "$DATABASE_URL" > backend/.env
+
+      - name: Set up SSH
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        run: |
+          if [ -z "$SSH_PRIVATE_KEY" ]; then echo "::error::Secret SSH_PRIVATE_KEY is not set"; exit 1; fi
+          mkdir -p ~/.ssh && chmod 700 ~/.ssh
+          printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/deploy_key && chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -p "$SSH_PORT" "$SSH_HOST" >> ~/.ssh/known_hosts 2>/dev/null
+          cat > ~/.ssh/config <<EOF
+          Host deploy-target
+            HostName $SSH_HOST
+            User $SSH_USER
+            Port $SSH_PORT
+            IdentityFile ~/.ssh/deploy_key
+            IdentitiesOnly yes
+          EOF
+
+      - name: Upload backend
+        run: |
+          ssh deploy-target "mkdir -p '$APP_DIR' && find '$APP_DIR' -mindepth 1 -maxdepth 1 ! -name node_modules -exec rm -rf {} +"
+          tar -czf - -C backend --exclude=node_modules --exclude='*.log' . | ssh deploy-target "tar -xzf - -C '$APP_DIR'"
+
+      - name: Install, migrate and restart
+        run: ssh deploy-target "cd '$APP_DIR' && PORT='$APP_PORT' PROXY_DIR='$PROXY_DIR' bash scripts/deploy.sh"
+
+      - name: Check public URL
+        run: curl -fsS --retry 5 --retry-delay 3 --retry-all-errors "$PUBLIC_URL/api/health"
