@@ -15,7 +15,10 @@ export function Layout() {
     pathname === '/safety' ||
     pathname === '/customers' ||
     pathname === '/travelers' ||
-    pathname === '/receivers';
+    pathname === '/receivers' ||
+    pathname === '/legal/safety-rules' ||
+    pathname === '/legal/prohibited' ||
+    pathname === '/legal/refund';
   /** Same overlay shell as Home: transparent nav on dark hero, no light gap above. */
   const isOverlayShell = isHome || isPanelPage;
 

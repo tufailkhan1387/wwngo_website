@@ -77,7 +77,10 @@ export function Header() {
     pathname === '/safety' ||
     pathname === '/customers' ||
     pathname === '/travelers' ||
-    pathname === '/receivers';
+    pathname === '/receivers' ||
+    pathname === '/legal/safety-rules' ||
+    pathname === '/legal/prohibited' ||
+    pathname === '/legal/refund';
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const navClass = ({ isActive }: { isActive: boolean }) => (isActive ? 'active' : undefined);

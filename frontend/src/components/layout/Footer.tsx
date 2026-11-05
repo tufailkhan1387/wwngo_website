@@ -163,12 +163,6 @@ export function Footer() {
                 <li>
                   <strong>{t.footer.supportEmail}:</strong> {t.footer.supportEmailPlaceholder}
                 </li>
-                <li>
-                  <strong>{t.footer.businessEmail}:</strong> {t.footer.businessEmailPlaceholder}
-                </li>
-                <li>
-                  <strong>{t.footer.address}:</strong> {t.footer.addressPlaceholder}
-                </li>
               </ul>
               <div className="footer-social" aria-label={t.footer.social}>
                 {socialLinks.map((item) => (
