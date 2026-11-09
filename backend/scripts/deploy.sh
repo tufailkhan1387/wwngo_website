@@ -1,77 +1,94 @@
 #!/usr/bin/env bash
-# Run on the server after a git pull (also used by GitHub Actions over SSH).
+# Runs ON THE SERVER after GitHub Actions uploads the backend (see .github/workflows/deploy-backend.yml).
+# Installs deps, runs DB migrations, (re)starts the API with pm2 and points public_html/backend at it.
 set -euo pipefail
 
-APP_DIR="${APP_DIR:-/home/limiria/public_html/wango}"
-BRANCH="${DEPLOY_BRANCH:-main}"
-REPO_URL="${REPO_URL:-https://github.com/QuratulainBabar/wwngo_backend.git}"
+APP_NAME="wwngo-backend"
+APP_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+PORT="${PORT:-5055}"
+PROXY_DIR="${PROXY_DIR:-public_html/backend}"
+case "$PROXY_DIR" in /*) ;; *) PROXY_DIR="$HOME/$PROXY_DIR" ;; esac
+# Server-only settings that survive deploys (auto-generated JWT secrets, plus anything
+# you add by hand, e.g. SMTP_*, STRIPE_*, FCM_SERVICE_ACCOUNT_PATH, ADMIN_SEED_*).
+SERVER_ENV="$HOME/.config/wwngo-backend.env"
 
 cd "$APP_DIR"
+[ -f .env ] || { echo "ERROR: $APP_DIR/.env is missing"; exit 1; }
+chmod 600 .env
 
-echo "==> Deploying in $APP_DIR (branch: $BRANCH)"
-
-# Keep production secrets; never overwrite .env from git.
-if [[ ! -f .env ]]; then
-  echo "ERROR: .env missing in $APP_DIR — create it before deploying."
-  exit 1
+# --- Node.js: use the server's node if present, otherwise install a private copy in ~/.local/node
+export PATH="$HOME/.local/node/bin:$HOME/.npm-global/bin:$PATH"
+for d in /usr/local/apps/nodejs*/bin /opt/nodejs*/bin; do [ -x "$d/node" ] && PATH="$PATH:$d"; done
+if ! command -v node >/dev/null 2>&1; then
+  echo "Node.js not found - installing latest v22 into ~/.local/node"
+  base="https://nodejs.org/dist/latest-v22.x"
+  file="$(curl -fsSL "$base/SHASUMS256.txt" | awk '/linux-x64\.tar\.xz$/ {print $2}')"
+  tmp="$(mktemp -d)"
+  curl -fsSL "$base/$file" -o "$tmp/$file"
+  (cd "$tmp" && curl -fsSL "$base/SHASUMS256.txt" | grep " $file\$" | sha256sum -c -)
+  rm -rf "$HOME/.local/node" && mkdir -p "$HOME/.local/node"
+  tar -xJf "$tmp/$file" -C "$HOME/.local/node" --strip-components=1
+  rm -rf "$tmp"
 fi
+echo "Using node $(node -v) at $(command -v node)"
 
-if [[ ! -d .git ]]; then
-  echo "==> Initializing git repo"
-  git init
-  git remote add origin "$REPO_URL"
-fi
+# --- Environment: keep JWT secrets stable across deploys and merge server-only settings
+mkdir -p "$(dirname "$SERVER_ENV")" && touch "$SERVER_ENV" && chmod 600 "$SERVER_ENV"
+for key in JWT_ACCESS_SECRET JWT_REFRESH_SECRET JWT_RESET_SECRET; do
+  if ! grep -q "^$key=." .env && ! grep -q "^$key=." "$SERVER_ENV"; then
+    echo "Generating $key (stored in $SERVER_ENV)"
+    echo "$key=$(node -e "console.log(require('crypto').randomBytes(48).toString('hex'))")" >> "$SERVER_ENV"
+  fi
+done
+# Values from GitHub (already in .env) win; server-only values fill the gaps.
+while IFS= read -r line || [ -n "$line" ]; do
+  case "$line" in ''|'#'*) continue ;; esac
+  key="${line%%=*}"
+  grep -q "^$key=" .env || printf '%s\n' "$line" >> .env
+done < "$SERVER_ENV"
 
-git remote set-url origin "$REPO_URL"
-git fetch origin "$BRANCH"
-git checkout -f -B "$BRANCH" "origin/$BRANCH"
-
-echo "==> Installing dependencies"
-npm install --omit=dev
-
-echo "==> Running migrations"
+# --- Dependencies + migrations
+mkdir -p uploads
+npm ci --omit=dev --no-audit --no-fund
 npm run db:migrate
 
-echo "==> Seeding admin user"
-npm run db:seed
-
-echo "==> Restarting app with npx pm2"
-PM2_BIN="$APP_DIR/node_modules/.bin/pm2"
-if [[ ! -x "$PM2_BIN" ]]; then
-  echo "ERROR: pm2 binary missing at $PM2_BIN"
-  exit 1
+# Create/refresh the admin login only when credentials are configured (never the code defaults).
+if grep -q '^ADMIN_SEED_EMAIL=.' .env && grep -q '^ADMIN_SEED_PASSWORD=.' .env; then
+  npm run db:seed
+else
+  echo "Skipping admin seed (set ADMIN_SEED_EMAIL and ADMIN_SEED_PASSWORD to enable)"
 fi
 
-# Stop previous PM2 process if present.
-"$PM2_BIN" stop wwngo >/dev/null 2>&1 || true
-"$PM2_BIN" delete wwngo >/dev/null 2>&1 || true
+# --- Process manager (pm2, installed per-user)
+if ! command -v pm2 >/dev/null 2>&1; then
+  npm install -g pm2 --prefix "$HOME/.npm-global" --no-audit --no-fund
+fi
+if pm2 describe "$APP_NAME" >/dev/null 2>&1; then
+  PORT="$PORT" pm2 restart "$APP_NAME" --update-env
+else
+  PORT="$PORT" pm2 start src/index.js --name "$APP_NAME" --cwd "$APP_DIR"
+fi
+pm2 save
 
-# Stop leftover bare `node src/index.js` only (avoid pkill-by-path self-kill).
-for pid in $(pgrep -f '^node .*(/wango/)?src/index\.js' || true); do
-  kill "$pid" 2>/dev/null || true
-done
-sleep 1
+# Start again after a server reboot
+PM2_BIN="$(command -v pm2)"
+CRON_LINE="@reboot PATH=$(dirname "$(command -v node)"):\$PATH $PM2_BIN resurrect # $APP_NAME"
+( crontab -l 2>/dev/null | grep -v "# $APP_NAME\$" || true; echo "$CRON_LINE" ) | crontab - \
+  || echo "WARNING: could not install @reboot cron entry"
 
-"$PM2_BIN" start "$APP_DIR/src/index.js" --name wwngo --cwd "$APP_DIR"
-"$PM2_BIN" save || true
-"$PM2_BIN" status || true
+# --- Apache: proxy https://<domain>/backend/* -> http://127.0.0.1:$PORT/*
+mkdir -p "$PROXY_DIR"
+cat > "$PROXY_DIR/.htaccess" <<EOF
+# Managed by backend/scripts/deploy.sh - do not edit by hand.
+DirectoryIndex disabled
+RewriteEngine On
+RewriteRule ^(.*)\$ http://127.0.0.1:$PORT/\$1 [P,L]
+EOF
 
-echo "==> Health check"
-ok=0
-for i in 1 2 3 4 5 6; do
+# --- Health check
+for i in $(seq 1 15); do
+  if curl -fsS "http://127.0.0.1:$PORT/api/health"; then echo; echo "Backend is up on port $PORT"; exit 0; fi
   sleep 2
-  if curl -fsS "http://192.168.1.8:3000/health"; then
-    echo
-    ok=1
-    break
-  fi
-  echo "Attempt $i failed, retrying..."
 done
-if [[ "$ok" -ne 1 ]]; then
-  echo "Health check failed"
-  "$PM2_BIN" status || true
-  "$PM2_BIN" logs wwngo --lines 50 --nostream || true
-  exit 1
-fi
-
-echo "==> Deploy complete"
+echo "ERROR: backend did not become healthy"; pm2 logs "$APP_NAME" --lines 80 --nostream || true
+exit 1

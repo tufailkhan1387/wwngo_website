@@ -30,14 +30,36 @@ jobs:
       - name: Write production .env
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
-          CORS_ORIGIN: ${{ vars.CORS_ORIGIN || 'https://wwngo.com,https://www.wwngo.com' }}
+          CORS_ORIGINS: ${{ vars.CORS_ORIGIN || 'https://wwngo.com,https://www.wwngo.com' }}
           WATI_API_KEY: ${{ secrets.WATI_API_KEY }}
           WATI_NOTIFY_TO: ${{ vars.WATI_NOTIFY_TO }}
+          # Optional: if not set here, deploy.sh generates JWT secrets once and keeps them on the server.
+          JWT_ACCESS_SECRET: ${{ secrets.JWT_ACCESS_SECRET }}
+          JWT_REFRESH_SECRET: ${{ secrets.JWT_REFRESH_SECRET }}
+          JWT_RESET_SECRET: ${{ secrets.JWT_RESET_SECRET }}
+          ADMIN_SEED_EMAIL: ${{ secrets.ADMIN_SEED_EMAIL }}
+          ADMIN_SEED_PASSWORD: ${{ secrets.ADMIN_SEED_PASSWORD }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
+          STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
+          STRIPE_WEBHOOK_SECRET: ${{ secrets.STRIPE_WEBHOOK_SECRET }}
+          GOOGLE_MAPS_API_KEY: ${{ secrets.GOOGLE_MAPS_API_KEY }}
         run: |
           if [ -z "$DATABASE_URL" ]; then echo "::error::Secret DATABASE_URL is not set"; exit 1; fi
           umask 077
-          printf 'PORT=%s\nCORS_ORIGIN=%s\nDATABASE_URL=%s\nWATI_API_KEY=%s\nWATI_NOTIFY_TO=%s\n' \
-            "$APP_PORT" "$CORS_ORIGIN" "$DATABASE_URL" "$WATI_API_KEY" "$WATI_NOTIFY_TO" > backend/.env
+          {
+            echo "NODE_ENV=production"
+            echo "HOST=127.0.0.1"
+            echo "PORT=$APP_PORT"
+            echo "APP_PUBLIC_URL=$PUBLIC_URL"
+            # Only non-empty values, so server-side settings (deploy.sh) can fill the rest.
+            for key in DATABASE_URL CORS_ORIGINS WATI_API_KEY WATI_NOTIFY_TO \
+                       JWT_ACCESS_SECRET JWT_REFRESH_SECRET JWT_RESET_SECRET \
+                       ADMIN_SEED_EMAIL ADMIN_SEED_PASSWORD SMTP_USER SMTP_PASS \
+                       STRIPE_SECRET_KEY STRIPE_WEBHOOK_SECRET GOOGLE_MAPS_API_KEY; do
+              if [ -n "${!key}" ]; then printf '%s=%s\n' "$key" "${!key}"; fi
+            done
+          } > backend/.env
 
       - name: Set up SSH
         env:
@@ -58,8 +80,8 @@ jobs:
 
       - name: Upload backend
         run: |
-          ssh deploy-target "mkdir -p '$APP_DIR' && find '$APP_DIR' -mindepth 1 -maxdepth 1 ! -name node_modules -exec rm -rf {} +"
-          tar -czf - -C backend --exclude=node_modules --exclude='*.log' . | ssh deploy-target "tar -xzf - -C '$APP_DIR'"
+          ssh deploy-target "mkdir -p '$APP_DIR' && find '$APP_DIR' -mindepth 1 -maxdepth 1 ! -name node_modules ! -name uploads ! -name 'serviceAccount*.json' -exec rm -rf {} +"
+          tar -czf - -C backend --exclude=node_modules --exclude=uploads --exclude='*.log' . | ssh deploy-target "tar -xzf - -C '$APP_DIR'"
 
       - name: Install, migrate and restart
         run: ssh deploy-target "cd '$APP_DIR' && PORT='$APP_PORT' PROXY_DIR='$PROXY_DIR' bash scripts/deploy.sh"
