@@ -1,32 +1,33 @@
-# React + TypeScript + Vite
+# WWNGO (Website + Admin)
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Single React + Vite project:
 
-Currently, two official plugins are available:
+| Surface | URL | Code |
+|---------|-----|------|
+| Marketing website | http://localhost:5173/ | `src/site/` |
+| Admin portal | http://localhost:5173/admin | `src/pages/`, `src/components/` |
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+APIs come from `wwngo_backend` (port 3000). Vite proxies `/api` → `:3000`.
 
-## React Compiler
+## Setup
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```bash
+npm install
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+## Run
+
+```bash
+npm run dev
+```
+
+- Website: http://localhost:5173/
+- Admin login: http://localhost:5173/admin/login
+
+## Env (root `.env`)
+
+```
+VITE_API_URL=http://localhost:3000/api/v1
+# Optional override for contact form (defaults to VITE_API_URL without /api/v1)
+# VITE_SITE_API_URL=http://localhost:3000
+```
