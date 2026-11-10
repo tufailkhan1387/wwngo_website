@@ -22,26 +22,52 @@ function SolutionsDropdown({ mobile }: { mobile?: boolean }) {
   const { t } = useLanguage();
   const { pathname } = useLocation();
   const [open, setOpen] = useState(false);
+  /** After a link click, keep menu closed even while mouse is still hovering. */
+  const [forceClosed, setForceClosed] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+  const skipPathClose = useRef(true);
   const isActive = ['/customers', '/travelers', '/receivers'].some((p) => pathname.startsWith(p));
+
+  const closeMenu = () => {
+    setOpen(false);
+    setForceClosed(true);
+  };
+
+  useEffect(() => {
+    if (skipPathClose.current) {
+      skipPathClose.current = false;
+      return;
+    }
+    closeMenu();
+  }, [pathname]);
 
   useEffect(() => {
     if (mobile) return;
     const onDoc = (e: MouseEvent) => {
-      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+      if (ref.current && !ref.current.contains(e.target as Node)) {
+        setOpen(false);
+        setForceClosed(true);
+      }
     };
     document.addEventListener('click', onDoc);
     return () => document.removeEventListener('click', onDoc);
   }, [mobile]);
 
   return (
-    <div className={`nav-dropdown ${open ? 'open' : ''}${isActive ? ' is-active' : ''}`} ref={ref}>
+    <div
+      className={`nav-dropdown${open ? ' open' : ''}${forceClosed ? ' nav-dropdown--force-closed' : ''}${isActive ? ' is-active' : ''}`}
+      ref={ref}
+      onMouseLeave={() => setForceClosed(false)}
+    >
       <button
         type="button"
         className={`nav-dropdown__trigger${isActive ? ' active' : ''}`}
         aria-expanded={open}
         aria-current={isActive ? 'page' : undefined}
-        onClick={() => setOpen((v) => !v)}
+        onClick={() => {
+          setForceClosed(false);
+          setOpen((v) => !v);
+        }}
       >
         {t.nav.solutions}
         <svg className="nav-dropdown__chev" width="14" height="14" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -49,13 +75,13 @@ function SolutionsDropdown({ mobile }: { mobile?: boolean }) {
         </svg>
       </button>
       <div className="nav-dropdown__menu">
-        <NavLink to="/customers" onClick={() => setOpen(false)}>
+        <NavLink to="/customers" onClick={closeMenu}>
           <span className="nav-dropdown__title">{t.nav.forCustomers}</span>
         </NavLink>
-        <NavLink to="/travelers" onClick={() => setOpen(false)}>
+        <NavLink to="/travelers" onClick={closeMenu}>
           <span className="nav-dropdown__title">{t.nav.forTravelers}</span>
         </NavLink>
-        <NavLink to="/receivers" onClick={() => setOpen(false)}>
+        <NavLink to="/receivers" onClick={closeMenu}>
           <span className="nav-dropdown__title">{t.nav.forReceivers}</span>
         </NavLink>
       </div>

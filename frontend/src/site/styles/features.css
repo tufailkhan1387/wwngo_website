@@ -71,7 +71,8 @@
   color: white;
 }
 
-.feat-hero__title {
+.feat-hero__title,
+h1.feat-hero__title {
   margin: 1.25rem 0 0;
   font-size: clamp(2.4rem, 5vw, 3.75rem);
   font-weight: 800;
@@ -91,7 +92,8 @@
   font-weight: 700;
 }
 
-.feat-hero__lead {
+.feat-hero__lead,
+p.feat-hero__lead {
   margin: 1.25rem 0 0;
   max-width: 28rem;
   font-size: 1.05rem;

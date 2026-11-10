@@ -80,7 +80,8 @@
   font-weight: 700;
 }
 
-.faq-hero__title {
+.faq-hero__title,
+h1.faq-hero__title {
   margin: 1.5rem auto 0;
   max-width: 100%;
   font-size: clamp(2.4rem, 5.5vw, 4rem);
@@ -95,7 +96,8 @@
   margin-inline: 0.25rem;
 }
 
-.faq-hero__lead {
+.faq-hero__lead,
+p.faq-hero__lead {
   margin: 1.5rem auto 0;
   max-width: 34rem;
   font-size: 1.05rem;

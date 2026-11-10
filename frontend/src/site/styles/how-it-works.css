@@ -75,7 +75,8 @@
   font-weight: 700;
 }
 
-.hiw-hero__title {
+.hiw-hero__title,
+h1.hiw-hero__title {
   margin: 1.5rem 0 0;
   font-size: clamp(2.5rem, 5.5vw, 4.25rem);
   font-weight: 800;
@@ -90,7 +91,8 @@
   -webkit-text-fill-color: #fff;
 }
 
-.hiw-hero__lead {
+.hiw-hero__lead,
+p.hiw-hero__lead {
   margin: 1.5rem auto 0;
   max-width: 36rem;
   font-size: 1.05rem;

@@ -76,7 +76,8 @@
   font-weight: 700;
 }
 
-.trav-hero__title {
+.trav-hero__title,
+h1.trav-hero__title {
   margin: 1.5rem 0 0;
   max-width: 48rem;
   font-size: clamp(2.5rem, 5.5vw, 4.25rem);
@@ -92,7 +93,8 @@
   -webkit-text-fill-color: #fff;
 }
 
-.trav-hero__lead {
+.trav-hero__lead,
+p.trav-hero__lead {
   margin: 1.5rem auto 0;
   max-width: 36rem;
   font-size: 1.05rem;
