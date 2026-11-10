@@ -86,14 +86,15 @@
   font-weight: 700;
 }
 
-.about-hero__title {
+.about-hero__title,
+h1.about-hero__title {
   margin: 1.25rem auto 0;
   max-width: 100%;
   font-size: clamp(2.5rem, 5.5vw, 3.75rem);
   font-weight: 800;
   line-height: 1.2;
   letter-spacing: -0.035em;
-  color: white;
+  color: #fff;
 }
 
 .about-hero__title .home-highlight-ring {
@@ -110,7 +111,8 @@
   color: #d3f36b;
 }
 
-.about-hero__lead {
+.about-hero__lead,
+p.about-hero__lead {
   margin: 1.35rem auto 0;
   max-width: 34rem;
   font-size: 1.05rem;

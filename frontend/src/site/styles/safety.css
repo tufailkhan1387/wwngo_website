@@ -75,13 +75,14 @@
   font-weight: 700;
 }
 
-.safety-hero__title {
+.safety-hero__title,
+h1.safety-hero__title {
   margin: 1.5rem 0 0;
   font-size: clamp(2.5rem, 5.5vw, 4.25rem);
   font-weight: 800;
   line-height: 1.05;
   letter-spacing: -0.035em;
-  color: white;
+  color: #fff;
 }
 
 .safety-hero__title .home-highlight-ring,
@@ -90,7 +91,8 @@
   -webkit-text-fill-color: #fff;
 }
 
-.safety-hero__lead {
+.safety-hero__lead,
+p.safety-hero__lead {
   margin: 1.5rem auto 0;
   max-width: 36rem;
   font-size: 1.05rem;

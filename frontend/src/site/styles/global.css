@@ -41,7 +41,9 @@
   --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
-/* Scoped to marketing site so admin Tailwind styles stay intact */
+/* Scoped to marketing site so admin Tailwind styles stay intact.
+   Use :where() so defaults keep 0 specificity and page/component
+   classes (hero titles, light text on dark panels, .btn colors) win. */
 .site-shell {
   font-family: var(--font-body);
   color: var(--ink);
@@ -57,27 +59,21 @@
   color: white;
 }
 
-.site-shell img {
+.site-shell :where(img) {
   max-width: 100%;
   display: block;
 }
 
-.site-shell a {
+.site-shell :where(a) {
   color: inherit;
   text-decoration: none;
 }
 
-.site-shell button,
-.site-shell input,
-.site-shell textarea,
-.site-shell select {
+.site-shell :where(button, input, textarea, select) {
   font: inherit;
 }
 
-.site-shell h1,
-.site-shell h2,
-.site-shell h3,
-.site-shell h4 {
+.site-shell :where(h1, h2, h3, h4) {
   font-family: var(--font-display);
   line-height: 1.15;
   letter-spacing: -0.02em;
@@ -85,7 +81,7 @@
   color: var(--ink);
 }
 
-.site-shell p {
+.site-shell :where(p) {
   margin: 0 0 1rem;
   color: var(--ink-soft);
 }
@@ -187,33 +183,47 @@
   transform: translateY(-1px);
 }
 
-.btn--primary {
+.btn--primary,
+a.btn--primary,
+button.btn--primary {
   background: var(--brand);
-  color: white;
+  color: #fff;
   box-shadow: var(--shadow-blue);
 }
 
-.btn--primary:hover {
+.btn--primary:hover,
+a.btn--primary:hover,
+button.btn--primary:hover {
   background: var(--brand-400);
+  color: #fff;
 }
 
-.btn--ghost {
+.btn--ghost,
+a.btn--ghost,
+button.btn--ghost {
   background: rgba(255, 255, 255, 0.12);
-  color: white;
+  color: #fff;
   border: 1px solid rgba(255, 255, 255, 0.28);
 }
 
-.btn--outline {
+.btn--outline,
+a.btn--outline,
+button.btn--outline {
   background: transparent;
   color: var(--brand);
   border: 1.5px solid var(--brand);
 }
 
-.btn--outline:hover {
+.btn--outline:hover,
+a.btn--outline:hover,
+button.btn--outline:hover {
   background: var(--brand-soft);
+  color: var(--brand);
 }
 
-.btn--light {
+.btn--light,
+a.btn--light,
+button.btn--light {
   background: white;
   color: var(--brand);
 }
