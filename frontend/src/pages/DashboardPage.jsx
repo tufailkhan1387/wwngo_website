@@ -101,51 +101,51 @@ export default function DashboardPage() {
       label: 'Users',
       value: stats.users,
       hint: `${stats.suspended_users || 0} suspended`,
-      to: '/users',
+      to: '/admin/users',
     },
     {
       label: 'Active deliveries',
       value: stats.active_deliveries,
       hint: `${stats.delivered || 0} delivered`,
-      to: '/deliveries',
+      to: '/admin/deliveries',
     },
     {
       label: 'Open disputes',
       value: stats.open_disputes,
       hint: 'Needs review',
-      to: '/disputes',
+      to: '/admin/disputes',
       tone: Number(stats.open_disputes) > 0 ? 'warn' : 'ok',
     },
     {
       label: 'Escrow held',
       value: formatCents(stats.escrow_held_cents),
       hint: `${stats.escrows_held || 0} held · ${stats.escrows_frozen || 0} frozen`,
-      to: '/escrows',
+      to: '/admin/escrows',
     },
   ];
 
   const secondary = [
-    { label: 'Trips open', value: stats.trips_open, to: '/trips' },
-    { label: 'Trips in transit', value: stats.trips_in_transit, to: '/trips' },
-    { label: 'Cancelled', value: stats.cancelled_deliveries, to: '/cancelled' },
-    { label: 'KYC pending', value: stats.kyc_pending, to: '/users' },
-    { label: 'KYC approved', value: stats.kyc_approved, to: '/users' },
+    { label: 'Trips open', value: stats.trips_open, to: '/admin/trips' },
+    { label: 'Trips in transit', value: stats.trips_in_transit, to: '/admin/trips' },
+    { label: 'Cancelled', value: stats.cancelled_deliveries, to: '/admin/cancelled' },
+    { label: 'KYC pending', value: stats.kyc_pending, to: '/admin/users' },
+    { label: 'KYC approved', value: stats.kyc_approved, to: '/admin/users' },
     {
       label: 'NFC fraud flags',
       value: stats.nfc_fraud_flags,
-      to: '/nfc-audit',
+      to: '/admin/nfc-audit',
     },
-    { label: 'NFC scans (7d)', value: stats.nfc_scans_7d, to: '/nfc-audit' },
-    { label: 'Total trips', value: stats.trips, to: '/trips' },
+    { label: 'NFC scans (7d)', value: stats.nfc_scans_7d, to: '/admin/nfc-audit' },
+    { label: 'Total trips', value: stats.trips, to: '/admin/trips' },
   ];
 
   const shortcuts = [
-    { to: '/users', label: 'Users' },
-    { to: '/trips', label: 'Trips' },
-    { to: '/deliveries', label: 'Deliveries' },
-    { to: '/escrows', label: 'Escrows' },
-    { to: '/nfc-audit', label: 'NFC Audit' },
-    { to: '/disputes', label: 'Disputes' },
+    { to: '/admin/users', label: 'Users' },
+    { to: '/admin/trips', label: 'Trips' },
+    { to: '/admin/deliveries', label: 'Deliveries' },
+    { to: '/admin/escrows', label: 'Escrows' },
+    { to: '/admin/nfc-audit', label: 'NFC Audit' },
+    { to: '/admin/disputes', label: 'Disputes' },
   ];
 
   return (
