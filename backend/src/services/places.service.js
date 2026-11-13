@@ -2,8 +2,13 @@ import { env } from '../config/env.js';
 import { AppError } from '../utils/errors.js';
 
 const PLACES_AUTOCOMPLETE =
-  'https://maps.googleapis.com/maps/api/place/autocomplete/json';
-const PLACES_DETAILS = 'https://maps.googleapis.com/maps/api/place/details/json';
+  'https://places.googleapis.com/v1/places:autocomplete';
+const PLACES_DETAILS_BASE = 'https://places.googleapis.com/v1/places';
+
+const AUTOCOMPLETE_FIELD_MASK =
+  'suggestions.placePrediction.placeId,suggestions.placePrediction.text,suggestions.placePrediction.structuredFormat';
+const DETAILS_FIELD_MASK =
+  'id,displayName,formattedAddress,location,addressComponents';
 
 function assertConfigured() {
   if (!env.googleMapsApiKey) {
@@ -15,6 +20,18 @@ function assertConfigured() {
   }
 }
 
+function textValue(value) {
+  if (value && typeof value === 'object' && typeof value.text === 'string') {
+    return value.text.trim();
+  }
+  if (typeof value === 'string') return value.trim();
+  return '';
+}
+
+function googleErrorMessage(data, fallback) {
+  return data?.error?.message || fallback;
+}
+
 /**
  * @param {string} query
  * @param {'cities'|'places'|'airports'} mode
@@ -24,37 +41,53 @@ export async function autocomplete(query, mode = 'places') {
   const trimmed = String(query || '').trim();
   if (trimmed.length < 2) return { predictions: [] };
 
-  const types =
-    mode === 'cities'
-      ? '(cities)'
-      : mode === 'airports'
-        ? 'airport'
-        : 'establishment|geocode';
-  const url = new URL(PLACES_AUTOCOMPLETE);
-  url.searchParams.set('input', trimmed);
-  url.searchParams.set('key', env.googleMapsApiKey);
-  url.searchParams.set('types', types);
+  const body = { input: trimmed };
+  if (mode === 'cities') {
+    body.includedPrimaryTypes = ['locality', 'administrative_area_level_1'];
+  } else if (mode === 'airports') {
+    body.includedPrimaryTypes = ['airport'];
+  }
 
-  const response = await fetch(url);
+  const response = await fetch(PLACES_AUTOCOMPLETE, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-Goog-Api-Key': env.googleMapsApiKey,
+      'X-Goog-FieldMask': AUTOCOMPLETE_FIELD_MASK,
+    },
+    body: JSON.stringify(body),
+  });
   const data = await response.json().catch(() => ({}));
-  const status = data.status || 'UNKNOWN';
 
-  if (status !== 'OK' && status !== 'ZERO_RESULTS') {
+  if (!response.ok) {
     throw new AppError(
-      data.error_message || `Places autocomplete failed (${status})`,
+      googleErrorMessage(
+        data,
+        `Places autocomplete failed (${response.status})`
+      ),
       502,
       'PLACES_API_ERROR'
     );
   }
 
-  const predictions = (data.predictions || []).map((item) => {
-    const structured = item.structured_formatting || {};
-    return {
-      name: structured.main_text || item.description || '',
-      address: item.description || '',
-      placeId: item.place_id || null,
-    };
-  });
+  const predictions = (data.suggestions || [])
+    .map((item) => {
+      const pred = item?.placePrediction || {};
+      const structured = pred.structuredFormat || {};
+      const mainText = textValue(structured.mainText);
+      const secondaryText = textValue(structured.secondaryText);
+      const fullText = textValue(pred.text);
+      const name = mainText || fullText || '';
+      const address =
+        fullText ||
+        [mainText, secondaryText].filter(Boolean).join(', ');
+      return {
+        name,
+        address,
+        placeId: pred.placeId || null,
+      };
+    })
+    .filter((p) => p.name || p.address);
 
   return { predictions };
 }
@@ -69,36 +102,40 @@ export async function placeDetails(placeId) {
     throw new AppError('placeId is required', 400, 'VALIDATION_ERROR');
   }
 
-  const url = new URL(PLACES_DETAILS);
-  url.searchParams.set('place_id', id);
-  url.searchParams.set('fields', 'place_id,name,formatted_address,geometry,address_component');
-  url.searchParams.set('key', env.googleMapsApiKey);
+  const resourceId = id.startsWith('places/') ? id.slice('places/'.length) : id;
+  const url = `${PLACES_DETAILS_BASE}/${encodeURIComponent(resourceId)}`;
 
-  const response = await fetch(url);
+  const response = await fetch(url, {
+    method: 'GET',
+    headers: {
+      'X-Goog-Api-Key': env.googleMapsApiKey,
+      'X-Goog-FieldMask': DETAILS_FIELD_MASK,
+    },
+  });
   const data = await response.json().catch(() => ({}));
-  const status = data.status || 'UNKNOWN';
 
-  if (status !== 'OK') {
+  if (!response.ok) {
     throw new AppError(
-      data.error_message || `Places details failed (${status})`,
+      googleErrorMessage(data, `Places details failed (${response.status})`),
       502,
       'PLACES_API_ERROR'
     );
   }
 
-  const result = data.result || {};
-  const components = result.address_components || [];
+  const components = data.addressComponents || [];
   const country = components.find((c) => (c.types || []).includes('country'));
   const locality =
     components.find((c) => (c.types || []).includes('locality')) ||
-    components.find((c) => (c.types || []).includes('administrative_area_level_1'));
+    components.find((c) =>
+      (c.types || []).includes('administrative_area_level_1')
+    );
 
   return {
-    name: locality?.long_name || result.name || '',
-    address: result.formatted_address || result.name || '',
-    placeId: result.place_id || id,
-    countryCode: country?.short_name || null,
-    latitude: result.geometry?.location?.lat ?? null,
-    longitude: result.geometry?.location?.lng ?? null,
+    name: locality?.longText || data.displayName?.text || '',
+    address: data.formattedAddress || data.displayName?.text || '',
+    placeId: data.id || id,
+    countryCode: country?.shortText || null,
+    latitude: data.location?.latitude ?? null,
+    longitude: data.location?.longitude ?? null,
   };
 }

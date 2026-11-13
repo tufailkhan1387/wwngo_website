@@ -21,18 +21,6 @@ async function migrate() {
       applied_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
     )
   `);
-  // Older deployments tracked migrations in a `name` column; rename it so history is kept.
-  await pool.query(`
-    DO $$ BEGIN
-      IF EXISTS (SELECT 1 FROM information_schema.columns
-                 WHERE table_schema = current_schema() AND table_name = 'schema_migrations' AND column_name = 'name')
-         AND NOT EXISTS (SELECT 1 FROM information_schema.columns
-                 WHERE table_schema = current_schema() AND table_name = 'schema_migrations' AND column_name = 'filename')
-      THEN
-        ALTER TABLE schema_migrations RENAME COLUMN name TO filename;
-      END IF;
-    END $$;
-  `);
 
   const { rows: applied } = await pool.query(
     'SELECT filename FROM schema_migrations ORDER BY filename'
