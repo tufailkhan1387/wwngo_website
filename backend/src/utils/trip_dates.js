@@ -32,11 +32,12 @@ function parseDateOnly(value) {
   }
   const d = value instanceof Date ? value : new Date(value);
   if (Number.isNaN(d.getTime())) return null;
-  // DATE / timestamptz-at-midnight from pg: prefer UTC calendar day.
-  if (
-    value instanceof Date ||
-    (typeof value === 'string' && /T|Z|[+-]\d{2}:?\d{2}$/.test(value))
-  ) {
+  // node-pg parses DATE columns as local midnight, so read local fields;
+  // UTC fields would shift the day back by one on servers east of UTC.
+  if (value instanceof Date) {
+    return new Date(d.getFullYear(), d.getMonth(), d.getDate());
+  }
+  if (typeof value === 'string' && /T|Z|[+-]\d{2}:?\d{2}$/.test(value)) {
     return new Date(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate());
   }
   return new Date(d.getFullYear(), d.getMonth(), d.getDate());

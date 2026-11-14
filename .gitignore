@@ -4,3 +4,6 @@ dist/
 *.log
 .DS_Store
 .vite/
+
+# Mobile app lives in its own repo (QuratulainBabar/WWNDO_APP)
+wwngo_mobile_app/

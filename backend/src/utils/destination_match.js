@@ -266,11 +266,24 @@ function travelerDestinationCity(trip) {
 }
 
 /**
+ * True when the city head of [city] appears as a whole word in [label]
+ * ("Amsterdam, Netherlands" in "Amsterdam Airport Schiphol (AMS), …").
+ */
+function labelMentionsCity(label, city) {
+  const head = placeHead(city);
+  if (head.length < 4) return false;
+  const text = normalizePlace(label);
+  return Boolean(text) && ` ${text} `.includes(` ${head} `);
+}
+
+/**
  * Hard filter: traveler To must match sender To (city or country as applicable).
  *
  * Country-to-country sender deliveries match:
  * - air travelers on the same destination country / airport corridor
- * - land travelers whose To city is the city of the sender's destination airport
+ * - land travelers whose To city is the city of the sender's destination
+ *   airport, the city named in that airport's label, or the receiver
+ *   meetup city
  */
 export function destinationsMatch(delivery, trip) {
   const senderTo = deliveryDestination(delivery);
@@ -280,10 +293,15 @@ export function destinationsMatch(delivery, trip) {
   if (isCountryToCountry(delivery) && isLandTravelerTrip(trip)) {
     const senderCity = senderDestinationAirportCity(delivery);
     const travelerCity = travelerDestinationCity(trip);
-    if (senderCity && travelerCity && placesMatch(senderCity, travelerCity)) {
-      return true;
-    }
-    return false;
+    if (!travelerCity) return false;
+    if (senderCity && placesMatch(senderCity, travelerCity)) return true;
+    // Airports often sit in a neighbouring municipality (Google gives
+    // "Schiphol" for Amsterdam Airport Schiphol), so also accept the city the
+    // airport is named after, or where the receiver meets the traveler.
+    return [
+      delivery.destination_airport || delivery.destinationAirport,
+      delivery.receiver_meetup_location || delivery.receiverMeetupLocation,
+    ].some((label) => labelMentionsCity(label, travelerCity));
   }
 
   // Shared destination country ISO (country parcel ↔ air country trip).
