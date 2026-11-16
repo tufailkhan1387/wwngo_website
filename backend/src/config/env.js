@@ -93,6 +93,10 @@ export const env = {
       ''
     ),
     tokenTtlSecs: Number(process.env.SUMSUB_TOKEN_TTL_SECS) || 600,
+    /** Local testing only: lets the app skip Sumsub. Never enabled in production. */
+    devBypass:
+      cleanEnv(process.env.KYC_DEV_BYPASS) === 'true' &&
+      (process.env.NODE_ENV || 'development') !== 'production',
     webhookSecret:
       cleanEnv(process.env.SUMSUB_WEBHOOK_SECRET) ||
       cleanEnv(process.env.SUMSUB_SECRET_KEY || process.env.SUMSUB_SECRET),

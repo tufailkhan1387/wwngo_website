@@ -165,6 +165,21 @@ export async function getKycStatus(userId, { sync = true } = {}) {
 }
 
 /**
+ * POST /kyc/dev-bypass — approve KYC without Sumsub (local testing only).
+ */
+export async function devBypassKyc(userId) {
+  if (!env.sumsub.devBypass) {
+    throw new AppError('KYC bypass is not enabled on this server', 403, 'KYC_BYPASS_DISABLED');
+  }
+  const user = await findUserRow(userId);
+  if (!user) {
+    throw new AppError('User not found', 404, 'USER_NOT_FOUND');
+  }
+  await persistKycUpdate(user.id, { kycStatus: 'approved', reviewStatus: 'dev_bypass' });
+  return getKycStatus(user.id, { sync: false });
+}
+
+/**
  * Webhook handler — source of truth for final KYC decisions.
  */
 export async function handleSumsubWebhook({

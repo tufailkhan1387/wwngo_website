@@ -21,6 +21,15 @@ export const getStatus = asyncHandler(async (req, res) => {
 });
 
 /**
+ * POST /api/v1/kyc/dev-bypass
+ * Local testing only (KYC_DEV_BYPASS=true): approves KYC without Sumsub.
+ */
+export const devBypass = asyncHandler(async (req, res) => {
+  const data = await kycService.devBypassKyc(req.user.id);
+  res.json({ success: true, data });
+});
+
+/**
  * POST /api/v1/webhooks/sumsub
  * Sumsub review webhooks (signature verified).
  */

@@ -6,5 +6,6 @@ const router = Router();
 
 router.post('/access-token', authenticate, kycController.createAccessToken);
 router.get('/status', authenticate, kycController.getStatus);
+router.post('/dev-bypass', authenticate, kycController.devBypass);
 
 export default router;
