@@ -1,0 +1,4 @@
+﻿CONNECTED: postgresql://postgres:123456@localhost:5432/wwngo
+EXACT: []
+LIKE: []
+FAIL: postgresql://postgres:123456@172.16.11.14:5432/wwngo no pg_hba.conf entry for host "172.16.11.14", user "postgres", database "wwngo", no encryption

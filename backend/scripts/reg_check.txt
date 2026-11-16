@@ -1,0 +1,7 @@
+﻿node : ERR fetch failed
+At C:\Users\qurat\AppData\Local\Temp\ps-script-2f29a511-86c2-4a74-853a-9daa7ee2b9fc.ps1:14 char:1
++ node -e "fetch('http://172.16.11.14:3000/api/v1/auth/register',{metho ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (ERR fetch failed:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 

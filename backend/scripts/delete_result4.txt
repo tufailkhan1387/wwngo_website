@@ -1,0 +1,14 @@
+﻿DB: postgresql://postgres:***@localhost:5432/wwngo
+RECENT_EMAILS: [
+  'admin@admin.com',
+  'justcoding706@gmail.com',
+  'amjadkhan5093@gmail.com',
+  'aliakhzir@gmail.com',
+  'mwork5925@gmail.com',
+  'wacpacademy@gmail.com',
+  'tufailkhan5093@gmail.com',
+  'debugbyte011@gmail.com',
+  'quratulainbabar36@gmail.com'
+]
+MATCH: []
+NOT_FOUND

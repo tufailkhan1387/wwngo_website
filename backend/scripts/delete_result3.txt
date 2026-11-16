@@ -1,0 +1,26 @@
+﻿DB: postgresql://postgres:***@localhost:5432/wwngo
+RECENT_EMAILS: [
+  'tchvanta@gmail.com',
+  'admin@admin.com',
+  'justcoding706@gmail.com',
+  'amjadkhan5093@gmail.com',
+  'aliakhzir@gmail.com',
+  'mwork5925@gmail.com',
+  'wacpacademy@gmail.com',
+  'tufailkhan5093@gmail.com',
+  'debugbyte011@gmail.com',
+  'quratulainbabar36@gmail.com'
+]
+MATCH: [
+  {
+    id: 'b1852c18-c1b0-4404-a445-eba50af4861d',
+    email: 'tchvanta@gmail.com',
+    name: 'x',
+    role: null,
+    phone: '+15555555555'
+  }
+]
+DELETED: {
+  id: 'b1852c18-c1b0-4404-a445-eba50af4861d',
+  email: 'tchvanta@gmail.com'
+}

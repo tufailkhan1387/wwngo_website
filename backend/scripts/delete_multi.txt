@@ -1,0 +1,4 @@
+﻿DB: postgresql://postgres:***@localhost:5432/wwngo
+NOT_FOUND: sajidali222817@gmail.com
+DELETED: wacpacademy@gmail.com (Haris)
+DELETED: mwork5925@gmail.com (Hamza)

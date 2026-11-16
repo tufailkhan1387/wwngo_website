@@ -1,0 +1,22 @@
+﻿node : [eval]:1
+At C:\Users\qurat\AppData\Local\Temp\ps-script-c592d602-9df1-469c-b6d3-dd6aa00f45b4.ps1:16 char:1
++ node -e "import('pg').then(async ({default:pg})=>{ const c=new pg.Cli ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ([eval]:1:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+import('pg').then(async ({default:pg})=>{ const c=new 
+pg.Client({connectionString:'postgresql://postgres:123456@localhost:5432/wwngo'}); await c.connect(); const r=await 
+c.query(SELECT email FROM users WHERE email ILIKE '%tch%' OR email ILIKE '%vanta%' OR email ILIKE '%gmail%' ORDER BY 
+created_at DESC LIMIT 30); console.log(JSON.stringify(r.rows,null,2)); await c.end(); });
+                                                                                                                       
+                                                           ^^^^^^
+Expected ',', got 'ident'
+
+SyntaxError: missing ) after argument list
+    at makeContextifyScript (node:internal/vm:194:14)
+    at compileScript (node:internal/process/execution:388:10)
+    at evalTypeScript (node:internal/process/execution:260:22)
+    at node:internal/main/eval_string:71:3
+
+Node.js v24.18.1
