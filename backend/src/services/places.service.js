@@ -43,7 +43,12 @@ export async function autocomplete(query, mode = 'places') {
 
   const body = { input: trimmed };
   if (mode === 'cities') {
-    body.includedPrimaryTypes = ['locality', 'administrative_area_level_1'];
+    // Include country so From/To city search also matches nation names.
+    body.includedPrimaryTypes = [
+      'locality',
+      'administrative_area_level_1',
+      'country',
+    ];
   } else if (mode === 'airports') {
     body.includedPrimaryTypes = ['airport'];
   }
@@ -126,15 +131,21 @@ export async function placeDetails(placeId) {
   const country = components.find((c) => (c.types || []).includes('country'));
   const locality =
     components.find((c) => (c.types || []).includes('locality')) ||
+    components.find((c) => (c.types || []).includes('postal_town')) ||
+    components.find((c) =>
+      (c.types || []).includes('administrative_area_level_2')
+    ) ||
     components.find((c) =>
       (c.types || []).includes('administrative_area_level_1')
     );
+  const localityName = locality?.longText || null;
 
   return {
-    name: locality?.longText || data.displayName?.text || '',
+    name: localityName || data.displayName?.text || '',
     address: data.formattedAddress || data.displayName?.text || '',
     placeId: data.id || id,
     countryCode: country?.shortText || null,
+    locality: localityName,
     latitude: data.location?.latitude ?? null,
     longitude: data.location?.longitude ?? null,
   };
