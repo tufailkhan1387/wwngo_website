@@ -99,11 +99,14 @@ export function Header() {
     pathname === '/faq' ||
     pathname === '/features' ||
     pathname === '/contact' ||
+    pathname === '/delete-account' ||
     pathname === '/how-it-works' ||
     pathname === '/safety' ||
     pathname === '/customers' ||
     pathname === '/travelers' ||
     pathname === '/receivers' ||
+    pathname === '/legal/privacy' ||
+    pathname === '/legal/terms' ||
     pathname === '/legal/safety-rules' ||
     pathname === '/legal/prohibited' ||
     pathname === '/legal/refund';

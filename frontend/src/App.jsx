@@ -17,6 +17,7 @@ import SiteRoot from './site/SiteRoot';
 import { About } from './site/pages/About';
 import { Contact } from './site/pages/Contact';
 import { Customers } from './site/pages/Customers';
+import { DeleteAccount } from './site/pages/DeleteAccount';
 import { Download } from './site/pages/Download';
 import { FAQ } from './site/pages/FAQ';
 import { Features } from './site/pages/Features';
@@ -55,6 +56,7 @@ export default function App() {
         <Route path="safety" element={<Safety />} />
         <Route path="faq" element={<FAQ />} />
         <Route path="contact" element={<Contact />} />
+        <Route path="delete-account" element={<DeleteAccount />} />
         <Route path="download" element={<Download />} />
         <Route path="legal/privacy" element={<Privacy />} />
         <Route path="legal/terms" element={<Terms />} />

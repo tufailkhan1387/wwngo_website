@@ -1,0 +1,150 @@
+/* Delete account page — builds on contact.css */
+
+.delete-account-info {
+  padding: 3rem 1.25rem 1rem;
+}
+
+@media (min-width: 640px) {
+  .delete-account-info {
+    padding: 4rem 2rem 1.25rem;
+  }
+}
+
+.delete-account-info__inner {
+  width: min(100%, var(--container));
+  margin-inline: auto;
+}
+
+.delete-account-info__title {
+  margin: 0;
+  font-size: clamp(1.6rem, 2.8vw, 2.1rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+}
+
+.delete-account-steps {
+  margin: 1.75rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 900px) {
+  .delete-account-steps {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+}
+
+.delete-account-step {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  border: 1px solid var(--lilac-200);
+  border-radius: 1.25rem;
+  background: white;
+  padding: 1.25rem 1.2rem;
+}
+
+.delete-account-step__num {
+  flex: 0 0 auto;
+  display: inline-grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 999px;
+  background: var(--brand);
+  color: white;
+  font-size: 0.85rem;
+  font-weight: 800;
+}
+
+.delete-account-step h3 {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--ink);
+}
+
+.delete-account-step p {
+  margin: 0.45rem 0 0;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.delete-account-data {
+  margin-top: 2.5rem;
+  border-radius: 1.5rem;
+  background: #f5f8ff;
+  border: 1px solid var(--lilac-200);
+  padding: 1.5rem 1.35rem;
+}
+
+@media (min-width: 640px) {
+  .delete-account-data {
+    padding: 1.75rem 1.75rem;
+  }
+}
+
+.delete-account-data p {
+  margin: 1rem 0 0;
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+.delete-account-data ul {
+  margin: 0.75rem 0 0;
+  padding-left: 1.2rem;
+  color: var(--ink);
+}
+
+.delete-account-data li {
+  margin: 0.35rem 0;
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+.delete-account-data__note {
+  margin-top: 1.25rem !important;
+  font-weight: 600;
+  color: var(--ink) !important;
+}
+
+.delete-account-form-grid {
+  grid-template-columns: minmax(0, 1fr) !important;
+  max-width: 42rem;
+}
+
+.delete-account-hint {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.delete-account-optional {
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.delete-account-confirm {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  font-size: 0.9rem !important;
+  font-weight: 600 !important;
+  line-height: 1.55;
+  cursor: pointer;
+}
+
+.delete-account-confirm input {
+  width: 1.15rem !important;
+  height: 1.15rem;
+  margin-top: 0.15rem;
+  flex: 0 0 auto;
+  accent-color: var(--brand);
+  border-radius: 0.3rem;
+  padding: 0 !important;
+}

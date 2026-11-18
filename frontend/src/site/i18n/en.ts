@@ -75,6 +75,7 @@ export const en: TranslationTree = {
     safetyRules: 'Safety rules',
     prohibited: 'Prohibited items',
     refund: 'Refund policy',
+    deleteAccount: 'Delete account',
     socialPlaceholder: 'Social links will be published here.',
   },
   home: {
@@ -714,6 +715,58 @@ export const en: TranslationTree = {
     phoneLabel: 'Phone',
     phonePlaceholder: '[Phone number placeholder]',
   },
+  deleteAccount: {
+    title: 'Delete account',
+    lead:
+      'Request permanent deletion of your WWNGO account and associated personal data. This page explains the process and lets you submit a deletion request online.',
+    formTitle: 'Account deletion request',
+    formLead:
+      'Use the email address linked to your WWNGO account. We may contact you to verify ownership before completing deletion.',
+    stepsTitle: 'How account deletion works',
+    steps: [
+      {
+        title: 'Submit a request',
+        body: 'Fill out the form on this page with the email used for your WWNGO account. You can also email support@wwngo.com with the subject “Delete my account”.',
+      },
+      {
+        title: 'Identity verification',
+        body: 'We verify that the request comes from the account owner. Active deliveries, open disputes, or unpaid balances may need to be resolved first.',
+      },
+      {
+        title: 'Permanent deletion',
+        body: 'After verification, we permanently delete or anonymize personal account data. You will lose access to the app with that account.',
+      },
+    ],
+    dataTitle: 'What happens to your data',
+    dataDeletedIntro: 'When deletion is completed, we remove or anonymize:',
+    dataDeleted: [
+      'Account profile details (name, email, phone, preferences)',
+      'Login credentials and authentication tokens',
+      'In-app chat history tied to your account where feasible',
+      'Device tokens used for push notifications',
+    ],
+    dataRetainedIntro: 'We may retain limited records where required by law or for fraud prevention, for example:',
+    dataRetained: [
+      'Transaction, escrow, and payout records needed for accounting or disputes',
+      'KYC or security logs required by legal or compliance obligations',
+      'Records needed to prevent abuse after deletion',
+    ],
+    processingNote:
+      'Deletion requests are typically processed within 30 days after identity verification. Incomplete requests may take longer while we contact you.',
+    emailLabel: 'Account email',
+    emailHint: 'Must match the email on your WWNGO account',
+    nameLabel: 'Full name',
+    phoneLabel: 'Phone number',
+    phoneOptional: 'Optional',
+    reasonLabel: 'Reason (optional)',
+    reasonPlaceholder: 'Tell us briefly why you are leaving (optional)',
+    confirmLabel:
+      'I understand that deleting my WWNGO account is permanent and that I will lose access to my profile, wallet balance handling, and delivery history linked to this account.',
+    submit: 'Request account deletion',
+    success:
+      'Your deletion request was submitted. We will follow up at the email you provided after verifying your account.',
+    error: 'Something went wrong. Please try again or email support@wwngo.com.',
+  },
   download: {
     title: 'Download WWNGO',
     lead: 'Get the app to send parcels, carry on your trips, and confirm handoffs.',
@@ -734,54 +787,270 @@ export const en: TranslationTree = {
   legal: {
     privacy: {
       title: 'Privacy policy',
-      lead: 'Draft placeholder, replace with counsel-approved privacy policy before launch.',
-      draftNotice: 'This document is placeholder text for the WWNGO marketing site and is not legal advice.',
+      lead:
+        'How WWNGO collects, uses, stores, and protects personal data across our website and mobile marketplace for Senders, Travelers, and Receivers.',
+      draftNotice: '',
       lastUpdatedLabel: 'Last updated',
-      lastUpdatedValue: '[Date placeholder]',
+      lastUpdatedValue: '',
       sections: [
         {
-          heading: 'Overview',
+          heading: '1. Who we are',
           paragraphs: [
-            'WWNGO respects your privacy. This placeholder describes categories of data the app and website may process once final policies are published.',
+            'WWNGO is a peer-to-peer international parcel delivery marketplace. We connect Senders who need parcels delivered, Travelers who can carry capacity on trips they already take, and Receivers who collect parcels at destination.',
+            'In this policy, “WWNGO”, “we”, “us”, and “our” refer to the WWNGO platform and its operators. For privacy requests, contact support@wwngo.com. For general inquiries, contact info@wwngo.com.',
           ],
         },
         {
-          heading: 'Data we may collect',
-          paragraphs: ['Examples include account details, verification data, transaction metadata, and support communications.'],
+          heading: '2. Scope of this policy',
+          paragraphs: [
+            'This Privacy Policy covers personal data processed through:',
+          ],
           list: [
-            'Identity and KYC information processed via verification partners',
-            'Payment information processed via Stripe',
-            'Device and usage data for app functionality',
+            'The WWNGO marketing website, including language preference, contact forms, and account-deletion request forms',
+            'The WWNGO mobile app used for accounts, matching, chat, escrow payments, KYC, tracking, ratings, wallet activity, and NFC or in-app handoff confirmation',
+            'Backend systems that support authentication, notifications, disputes, and marketplace operations',
           ],
         },
         {
-          heading: 'Your rights',
-          paragraphs: ['Rights depend on applicable law. Contact info@wwngo.com for privacy requests once the service is live.'],
+          heading: '3. Data we collect',
+          paragraphs: [
+            'We collect only what is needed to run a trusted delivery marketplace. The exact data depends on your role and how you use WWNGO.',
+          ],
+          list: [
+            'Account and profile: name, email, phone number, password or auth tokens, preferred language, selected role (Sender, Traveler, Receiver), and profile information you choose to add',
+            'Identity verification (KYC): identity documents, selfie or biometric checks, nationality, date of birth, and verification outcome processed by Sumsub',
+            'Delivery and trip data: parcel descriptions, photos, dimensions and weight, pickup and drop-off details, trip routes and dates, offers or matches, meetup coordination, NFC checkpoint confirmations, and delivery status',
+            'Communications: in-app chat between matched users, support messages, dispute evidence, and website contact or deletion requests',
+            'Payments and wallet: payment and payout metadata handled with Stripe, escrow status, fees, refunds, and wallet activity. Full card numbers are processed by Stripe and are not stored on WWNGO servers',
+            'Device and usage: device type, OS and app version, IP address, approximate location when required for meetup or safety features, crash diagnostics, and security logs',
+          ],
+        },
+        {
+          heading: '4. How we use your data',
+          paragraphs: ['We use personal data to operate and protect the WWNGO marketplace, including to:'],
+          list: [
+            'Create accounts, authenticate users, and support Sender, Traveler, and Receiver workflows',
+            'Match parcel requests with traveler capacity and show relevant route or delivery information',
+            'Enable in-app chat, notifications, tracking updates, and NFC or in-app delivery confirmation',
+            'Complete KYC checks, reduce fraud, and enforce Safety Rules and Prohibited Items policies',
+            'Process escrow payments, Traveler payouts, refunds, and dispute outcomes through Stripe and WWNGO wallet features',
+            'Respond to support, privacy, and account-deletion requests',
+            'Improve reliability, diagnose issues, and keep the website and app secure',
+            'Meet legal, accounting, and regulatory obligations where they apply',
+          ],
+        },
+        {
+          heading: '5. How we store and protect data',
+          paragraphs: [
+            'WWNGO stores account, delivery, chat, and transaction records in secured backend systems used to run the service. Access is limited to authorized systems and personnel who need it to operate support, compliance, or engineering functions.',
+            'We apply safeguards such as HTTPS encryption in transit, access controls, monitoring, and partner security practices for payments (Stripe) and identity verification (Sumsub). No online service is perfectly secure. Protect your login details and contact support@wwngo.com if you suspect unauthorized access.',
+          ],
+        },
+        {
+          heading: '6. Legal bases',
+          paragraphs: [
+            'Where privacy laws require a legal basis, we process data to perform our contract with you, for legitimate interests such as platform safety and fraud prevention, to comply with legal obligations, and, where required, based on your consent (for example optional cookies or communications).',
+          ],
+        },
+        {
+          heading: '7. How we share data',
+          paragraphs: [
+            'We do not sell personal data. We share information only when needed to run the marketplace or when the law requires it:',
+          ],
+          list: [
+            'Other users: limited profile, verification status, parcel or trip details, and chat needed to complete a matched delivery',
+            'Stripe: payment processing, escrow-related flows, refunds, and payouts',
+            'Sumsub: identity verification and related KYC processing',
+            'Service providers: hosting, email or SMS, push notifications, analytics, and support tools under contractual safeguards',
+            'Authorities or safety partners: when required by law or to investigate fraud, prohibited items, or serious policy violations',
+          ],
+        },
+        {
+          heading: '8. International transfers',
+          paragraphs: [
+            'Because WWNGO supports cross-border deliveries, personal data may be processed in countries other than where you live, including by Stripe, Sumsub, and infrastructure providers. Where required, we use appropriate transfer safeguards.',
+          ],
+        },
+        {
+          heading: '9. Retention',
+          paragraphs: [
+            'We retain personal data only as long as needed for marketplace operations, support, dispute handling, fraud prevention, accounting, and legal compliance.',
+            'Delivery, escrow, payout, and KYC-related records may be kept longer when required by law or to resolve disputes. When data is no longer needed, we delete or anonymize it where feasible.',
+          ],
+        },
+        {
+          heading: '10. Your rights',
+          paragraphs: [
+            'Depending on where you live, you may have rights to access, correct, delete, or restrict processing of your personal data, object to certain processing, request portability, and withdraw consent where processing is consent-based.',
+            'You can request account deletion through the Delete Account page on this website or by emailing support@wwngo.com. We may verify identity before acting, and some records may be retained where the law or fraud prevention requires it.',
+          ],
+        },
+        {
+          heading: '11. Children',
+          paragraphs: [
+            'WWNGO is for users aged 18 and older. We do not knowingly collect personal data from children under 18. If you believe a minor has created an account or submitted data, contact support@wwngo.com so we can remove it.',
+          ],
+        },
+        {
+          heading: '12. Cookies and similar technologies',
+          paragraphs: [
+            'The marketing website may use essential cookies such as language preference and, when configured, analytics cookies to understand site usage. See our Cookie Policy for details.',
+            'The mobile app may store login state, notification tokens, and device identifiers needed for authentication, messaging, and security.',
+          ],
+        },
+        {
+          heading: '13. Changes to this policy',
+          paragraphs: [
+            'We may update this Privacy Policy to reflect product, legal, or operational changes. Material updates may be shown in the app, on the website, or by email where appropriate. Continued use of WWNGO after an update means you acknowledge the revised policy.',
+          ],
+        },
+        {
+          heading: '14. Contact',
+          paragraphs: [
+            'Privacy and data requests: support@wwngo.com',
+            'General inquiries: info@wwngo.com',
+            'Account deletion requests can also be submitted at /delete-account on this website.',
+          ],
         },
       ],
     },
     terms: {
       title: 'Terms of service',
-      lead: 'Draft placeholder, replace with counsel-approved terms before launch.',
-      draftNotice: 'This document is placeholder text for the WWNGO marketing site and is not legal advice.',
+      lead:
+        'These Terms of Service govern your access to and use of the WWNGO website, mobile app, and marketplace that connects Senders, Travelers, and Receivers for peer-to-peer international parcel delivery.',
+      draftNotice: '',
       lastUpdatedLabel: 'Last updated',
-      lastUpdatedValue: '[Date placeholder]',
+      lastUpdatedValue: '',
       sections: [
         {
-          heading: 'Agreement',
+          heading: '1. Acceptance of terms',
           paragraphs: [
-            'By using WWNGO you agree to marketplace rules governing senders, travelers, and receivers. Final terms will be presented in the app at signup.',
+            'By creating an account, downloading the app, using the website, or participating in any delivery arranged through WWNGO, you agree to these Terms, our Privacy Policy, Safety Rules, Prohibited Items policy, Cookie Policy, and Refund Policy.',
+            'If you do not agree, do not use WWNGO. We may update these Terms from time to time. Material updates may be shown in the app or on the website. Continued use after an update means you accept the revised Terms.',
           ],
         },
         {
-          heading: 'Marketplace role',
+          heading: '2. About WWNGO',
           paragraphs: [
-            'WWNGO provides a platform for matching and payments. Travelers are independent participants, not employees of WWNGO.',
+            'WWNGO is a peer-to-peer marketplace platform. We help users discover matches, communicate in-app, verify identity, hold payments in escrow, track deliveries, and confirm handoffs (including NFC checkpoints where available).',
+            'WWNGO is not a traditional courier, airline, freight forwarder, or customs broker. We do not take physical possession of parcels as a carrier. Travelers are independent users, not employees, agents, or partners of WWNGO in an employment sense.',
           ],
         },
         {
-          heading: 'Acceptable use',
-          paragraphs: ['Users must comply with prohibited-items, safety, and conduct policies.'],
+          heading: '3. Eligibility and accounts',
+          paragraphs: [],
+          list: [
+            'You must be at least 18 years old and able to form a binding contract.',
+            'You must provide accurate registration information and keep it up to date.',
+            'You are responsible for safeguarding your login credentials and for activity under your account.',
+            'We may require email, phone, and identity verification (KYC via Sumsub) before you can send, carry, or receive parcels.',
+            'One person should maintain one account unless we expressly allow otherwise. Fake, duplicate, or shared accounts are prohibited.',
+          ],
+        },
+        {
+          heading: '4. User roles',
+          paragraphs: [
+            'Users may act as Senders, Travelers, Receivers, or more than one role depending on the transaction:',
+          ],
+          list: [
+            'Senders request delivery of a parcel, provide accurate parcel details, fund escrow when required, and complete pickup confirmation.',
+            'Travelers offer travel capacity, accept parcels they can legally and safely transport, keep parcels secure, and complete pickup and delivery confirmations.',
+            'Receivers review delivery details, meet at the agreed location, inspect the parcel, and confirm receipt or open a dispute when appropriate.',
+          ],
+        },
+        {
+          heading: '5. Marketplace rules',
+          paragraphs: [
+            'All deliveries must be arranged and completed through WWNGO workflows. Do not move payments, negotiations, or handoff confirmations outside the platform.',
+            'You must comply with our Safety Rules and Prohibited Items policy, as well as airline, customs, border, and destination-country laws. False parcel descriptions, prohibited items, or fake handoff confirmations are grounds for immediate suspension.',
+            'Meetups should be arranged thoughtfully. Prefer public locations when practical, use in-app chat, and never confirm an NFC or in-app checkpoint for a handoff that did not occur.',
+          ],
+        },
+        {
+          heading: '6. Payments, escrow, and fees',
+          paragraphs: [
+            'Payments are processed through Stripe. Sender funds may be held in escrow until delivery is confirmed according to marketplace rules, after which Traveler payouts may be released subject to fees, holds, disputes, or compliance checks.',
+            'WWNGO may charge service, platform, or payment-processing fees. Applicable fees are shown in the app before you confirm a transaction. Currency availability and payout options may vary by region.',
+            'You authorize WWNGO and Stripe to process charges, refunds, chargebacks, and adjustments related to your use of the service. You are responsible for any taxes that apply to your activity where required by law.',
+          ],
+        },
+        {
+          heading: '7. Cancellations, disputes, and refunds',
+          paragraphs: [
+            'Cancellations, failed handoffs, damaged or missing parcels, and similar issues should be reported through the in-app dispute process as soon as possible. Outcomes depend on confirmation status, evidence, Safety Rules, and our Refund Policy.',
+            'WWNGO may pause escrow release, reverse or withhold payouts, request additional information, or mediate between parties. Opening a dispute does not guarantee a refund. See the Refund Policy for more detail.',
+          ],
+        },
+        {
+          heading: '8. Acceptable use',
+          paragraphs: ['You agree not to:'],
+          list: [
+            'Send, carry, or request illegal, dangerous, stolen, counterfeit, or otherwise prohibited items.',
+            'Misrepresent identity, trip details, parcel contents, photos, weight, value, or delivery status.',
+            'Harass, threaten, or defraud other users, or attempt to bypass KYC, escrow, chat, or confirmation features.',
+            'Scrape, reverse engineer, disrupt, or overload the service, or access accounts or data without authorization.',
+            'Use WWNGO for money laundering, sanctions evasion, or any unlawful purpose.',
+          ],
+        },
+        {
+          heading: '9. Verification and trust',
+          paragraphs: [
+            'Identity verification through Sumsub and other checks helps reduce fraud, but no verification system is perfect. Users remain responsible for their own diligence when meeting others and handing over parcels.',
+            'Ratings, reviews, and verification badges are informational. WWNGO does not guarantee the conduct, punctuality, or customs compliance of any user.',
+          ],
+        },
+        {
+          heading: '10. Intellectual property',
+          paragraphs: [
+            'WWNGO’s name, logo, app, website, and related content are owned by WWNGO or its licensors. You receive a limited, non-exclusive, non-transferable license to use the service for its intended purpose.',
+            'You retain rights to content you submit (such as parcel photos or chat messages), and grant WWNGO a license to host, process, and display that content as needed to operate the marketplace and enforce these Terms.',
+          ],
+        },
+        {
+          heading: '11. Third-party services',
+          paragraphs: [
+            'The service relies on third parties including Stripe for payments and Sumsub for KYC. Their terms and privacy practices also apply to the processing they perform. App store providers (Google Play, Apple App Store) may have additional terms for downloading the app.',
+          ],
+        },
+        {
+          heading: '12. Disclaimers',
+          paragraphs: [
+            'WWNGO is provided on an “as is” and “as available” basis. To the fullest extent permitted by law, we disclaim warranties of merchantability, fitness for a particular purpose, and non-infringement.',
+            'We do not warrant uninterrupted availability, error-free matching, successful customs clearance, or that every user will complete a delivery as expected. Cross-border travel and parcel transport involve risks outside our control.',
+          ],
+        },
+        {
+          heading: '13. Limitation of liability',
+          paragraphs: [
+            'To the fullest extent permitted by law, WWNGO and its operators are not liable for indirect, incidental, special, consequential, or punitive damages, or for lost profits, lost data, or loss of parcels arising from marketplace use, user conduct, travel disruptions, customs actions, or force majeure.',
+            'Where liability cannot be excluded, our aggregate liability related to your use of WWNGO is limited to the greater of (a) the fees you paid to WWNGO for the specific transaction giving rise to the claim in the three months before the claim, or (b) USD 100, except where applicable law requires otherwise.',
+          ],
+        },
+        {
+          heading: '14. Indemnity',
+          paragraphs: [
+            'You agree to indemnify and hold harmless WWNGO from claims, losses, and expenses (including reasonable legal fees) arising from your misuse of the service, your parcels or travel, your violation of these Terms or law, or disputes between you and other users, airlines, or authorities.',
+          ],
+        },
+        {
+          heading: '15. Suspension and termination',
+          paragraphs: [
+            'You may stop using WWNGO at any time. We may suspend or terminate access, withhold payouts pending investigation, or remove content if you breach these Terms, create risk for other users, fail verification, or if required by law.',
+            'Provisions that by nature should survive (including payments owed, disclaimers, liability limits, indemnity, and dispute terms) continue after termination.',
+          ],
+        },
+        {
+          heading: '16. Governing law',
+          paragraphs: [
+            'These Terms are governed by the laws applicable to WWNGO’s place of operation, without regard to conflict-of-law rules, except where mandatory consumer protections in your country apply. Courts in that jurisdiction may have exclusive venue for disputes that are not resolved informally, unless applicable law requires otherwise.',
+          ],
+        },
+        {
+          heading: '17. Contact',
+          paragraphs: [
+            'Questions about these Terms: support@wwngo.com',
+            'General inquiries: info@wwngo.com',
+          ],
         },
       ],
     },

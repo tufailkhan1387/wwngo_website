@@ -75,6 +75,7 @@ export const fr: TranslationTree = {
     safetyRules: 'Règles de sécurité',
     prohibited: 'Articles interdits',
     refund: 'Politique de remboursement',
+    deleteAccount: 'Supprimer le compte',
     socialPlaceholder: 'Les liens sociaux seront publiés ici.',
   },
   home: {
@@ -714,6 +715,58 @@ export const fr: TranslationTree = {
     phoneLabel: 'Téléphone',
     phonePlaceholder: '[Numéro de téléphone placeholder]',
   },
+  deleteAccount: {
+    title: 'Supprimer le compte',
+    lead:
+      'Demandez la suppression définitive de votre compte WWNGO et des données personnelles associées. Cette page explique le processus et vous permet d’envoyer une demande en ligne.',
+    formTitle: 'Demande de suppression de compte',
+    formLead:
+      'Utilisez l’adresse e-mail liée à votre compte WWNGO. Nous pourrons vous contacter pour vérifier que vous êtes bien le titulaire du compte avant de finaliser la suppression.',
+    stepsTitle: 'Comment fonctionne la suppression',
+    steps: [
+      {
+        title: 'Envoyer une demande',
+        body: 'Remplissez le formulaire de cette page avec l’e-mail de votre compte WWNGO. Vous pouvez aussi écrire à support@wwngo.com avec l’objet « Supprimer mon compte ».',
+      },
+      {
+        title: 'Vérification d’identité',
+        body: 'Nous vérifions que la demande vient du titulaire du compte. Les livraisons en cours, litiges ouverts ou soldes non réglés peuvent devoir être traités d’abord.',
+      },
+      {
+        title: 'Suppression définitive',
+        body: 'Après vérification, nous supprimons ou anonymisons définitivement les données personnelles du compte. Vous perdrez l’accès à l’app avec ce compte.',
+      },
+    ],
+    dataTitle: 'Que deviennent vos données',
+    dataDeletedIntro: 'Lorsque la suppression est terminée, nous supprimons ou anonymisons :',
+    dataDeleted: [
+      'Les détails du profil (nom, e-mail, téléphone, préférences)',
+      'Les identifiants de connexion et jetons d’authentification',
+      'L’historique de chat in-app lié à votre compte, dans la mesure du possible',
+      'Les jetons d’appareil utilisés pour les notifications push',
+    ],
+    dataRetainedIntro: 'Nous pouvons conserver des enregistrements limités lorsque la loi l’exige ou pour prévenir la fraude, par exemple :',
+    dataRetained: [
+      'Les enregistrements de transaction, séquestre et versements nécessaires à la comptabilité ou aux litiges',
+      'Les journaux KYC ou de sécurité exigés par des obligations légales ou de conformité',
+      'Les enregistrements nécessaires pour prévenir les abus après suppression',
+    ],
+    processingNote:
+      'Les demandes de suppression sont généralement traitées sous 30 jours après vérification d’identité. Les demandes incomplètes peuvent prendre plus de temps le temps de vous contacter.',
+    emailLabel: 'E-mail du compte',
+    emailHint: 'Doit correspondre à l’e-mail de votre compte WWNGO',
+    nameLabel: 'Nom complet',
+    phoneLabel: 'Numéro de téléphone',
+    phoneOptional: 'Facultatif',
+    reasonLabel: 'Motif (facultatif)',
+    reasonPlaceholder: 'Indiquez brièvement pourquoi vous partez (facultatif)',
+    confirmLabel:
+      'Je comprends que la suppression de mon compte WWNGO est définitive et que je perdrai l’accès à mon profil, à la gestion du portefeuille et à l’historique de livraison lié à ce compte.',
+    submit: 'Demander la suppression du compte',
+    success:
+      'Votre demande de suppression a été envoyée. Nous vous répondrons à l’e-mail fourni après vérification de votre compte.',
+    error: 'Une erreur s’est produite. Réessayez ou écrivez à support@wwngo.com.',
+  },
   download: {
     title: 'Télécharger WWNGO',
     lead: 'Obtenez l’app pour envoyer des colis, transporter lors de vos trajets et confirmer les remises.',
@@ -734,54 +787,270 @@ export const fr: TranslationTree = {
   legal: {
     privacy: {
       title: 'Politique de confidentialité',
-      lead: 'Brouillon placeholder, remplacer par une politique validée par un conseil juridique avant lancement.',
-      draftNotice: 'Ce document est un texte placeholder pour le site vitrine WWNGO et ne constitue pas un avis juridique.',
+      lead:
+        'Comment WWNGO collecte, utilise, stocke et protège les données personnelles sur notre site et notre place de marché mobile pour Expéditeurs, Voyageurs et Destinataires.',
+      draftNotice: '',
       lastUpdatedLabel: 'Dernière mise à jour',
-      lastUpdatedValue: '[Date placeholder]',
+      lastUpdatedValue: '',
       sections: [
         {
-          heading: 'Aperçu',
+          heading: '1. Qui nous sommes',
           paragraphs: [
-            'WWNGO respecte votre vie privée. Ce placeholder décrit les catégories de données que l’app et le site pourront traiter une fois les politiques finales publiées.',
+            'WWNGO est une place de marché internationale de livraison de colis peer-to-peer. Nous mettons en relation les Expéditeurs qui ont besoin d’envoyer un colis, les Voyageurs qui disposent d’une capacité sur un trajet qu’ils effectuent déjà, et les Destinataires qui récupèrent le colis à l’arrivée.',
+            'Dans cette politique, « WWNGO », « nous » et « notre » désignent la plateforme WWNGO et ses opérateurs. Pour les demandes de confidentialité, contactez support@wwngo.com. Pour les demandes générales, contactez info@wwngo.com.',
           ],
         },
         {
-          heading: 'Données que nous pouvons collecter',
-          paragraphs: ['Exemples : compte, vérification, métadonnées de transaction et communications d’assistance.'],
+          heading: '2. Champ d’application',
+          paragraphs: [
+            'Cette Politique de confidentialité couvre les données personnelles traitées via :',
+          ],
           list: [
-            'Informations d’identité et KYC via des partenaires de vérification',
-            'Informations de paiement traitées via Stripe',
-            'Données d’appareil et d’usage pour le fonctionnement de l’app',
+            'Le site vitrine WWNGO, y compris la préférence de langue, les formulaires de contact et les demandes de suppression de compte',
+            'L’application mobile WWNGO utilisée pour les comptes, le matching, le chat, les paiements en séquestre, le KYC, le suivi, les notes, le portefeuille et la confirmation NFC ou in-app',
+            'Les systèmes backend qui assurent l’authentification, les notifications, les litiges et le fonctionnement de la place de marché',
           ],
         },
         {
-          heading: 'Vos droits',
-          paragraphs: ['Les droits dépendent de la loi applicable. Contactez info@wwngo.com pour les demandes confidentialité une fois le service en ligne.'],
+          heading: '3. Données que nous collectons',
+          paragraphs: [
+            'Nous collectons uniquement ce qui est nécessaire pour faire fonctionner une place de marché de livraison digne de confiance. Les données exactes dépendent de votre rôle et de votre usage de WWNGO.',
+          ],
+          list: [
+            'Compte et profil : nom, e-mail, numéro de téléphone, mot de passe ou jetons d’auth, langue préférée, rôle choisi (Expéditeur, Voyageur, Destinataire) et informations de profil que vous ajoutez',
+            'Vérification d’identité (KYC) : documents d’identité, selfie ou contrôles biométriques, nationalité, date de naissance et résultat de vérification traités par Sumsub',
+            'Données de livraison et de trajet : descriptions de colis, photos, dimensions et poids, détails de prise en charge et de dépôt, itinéraires et dates, offres ou matching, coordination de rendez-vous, confirmations NFC et statut de livraison',
+            'Communications : chat in-app entre utilisateurs mis en relation, messages de support, preuves de litige, et demandes de contact ou de suppression sur le site',
+            'Paiements et portefeuille : métadonnées de paiement et de versement via Stripe, statut du séquestre, frais, remboursements et activité du portefeuille. Les numéros de carte complets sont traités par Stripe et ne sont pas stockés sur les serveurs WWNGO',
+            'Appareil et usage : type d’appareil, version du système et de l’app, adresse IP, localisation approximative si nécessaire aux rendez-vous ou à la sécurité, diagnostics de plantage et journaux de sécurité',
+          ],
+        },
+        {
+          heading: '4. Comment nous utilisons vos données',
+          paragraphs: ['Nous utilisons les données personnelles pour faire fonctionner et protéger la place de marché WWNGO, notamment pour :'],
+          list: [
+            'Créer des comptes, authentifier les utilisateurs et prendre en charge les parcours Expéditeur, Voyageur et Destinataire',
+            'Associer les demandes de colis à la capacité des voyageurs et afficher les informations de trajet ou de livraison pertinentes',
+            'Activer le chat in-app, les notifications, le suivi et la confirmation de livraison NFC ou in-app',
+            'Réaliser les contrôles KYC, réduire la fraude et faire respecter les Règles de sécurité et la politique d’Articles interdits',
+            'Traiter les paiements en séquestre, les versements Voyageur, les remboursements et les litiges via Stripe et le portefeuille WWNGO',
+            'Répondre aux demandes de support, de confidentialité et de suppression de compte',
+            'Améliorer la fiabilité, diagnostiquer les problèmes et sécuriser le site et l’app',
+            'Respecter les obligations légales, comptables et réglementaires applicables',
+          ],
+        },
+        {
+          heading: '5. Stockage et protection des données',
+          paragraphs: [
+            'WWNGO stocke les enregistrements de compte, de livraison, de chat et de transaction dans des systèmes backend sécurisés utilisés pour faire fonctionner le service. L’accès est limité aux systèmes et personnes autorisés qui en ont besoin pour le support, la conformité ou l’ingénierie.',
+            'Nous appliquons des mesures telles que le chiffrement HTTPS en transit, des contrôles d’accès, une surveillance, et les pratiques de sécurité de nos partenaires pour les paiements (Stripe) et la vérification d’identité (Sumsub). Aucun service en ligne n’est parfaitement sûr. Protégez vos identifiants et contactez support@wwngo.com en cas d’accès non autorisé suspect.',
+          ],
+        },
+        {
+          heading: '6. Bases légales',
+          paragraphs: [
+            'Lorsque le droit de la confidentialité l’exige, nous traitons les données pour exécuter notre contrat avec vous, pour des intérêts légitimes tels que la sécurité de la plateforme et la prévention de la fraude, pour respecter des obligations légales et, le cas échéant, sur la base de votre consentement (par exemple cookies ou communications optionnels).',
+          ],
+        },
+        {
+          heading: '7. Partage des données',
+          paragraphs: [
+            'Nous ne vendons pas les données personnelles. Nous partageons des informations uniquement lorsque cela est nécessaire au fonctionnement de la place de marché ou lorsque la loi l’exige :',
+          ],
+          list: [
+            'Autres utilisateurs : profil limité, statut de vérification, détails de colis ou de trajet, et chat nécessaire pour réaliser une livraison mise en relation',
+            'Stripe : traitement des paiements, flux liés au séquestre, remboursements et versements',
+            'Sumsub : vérification d’identité et traitements KYC associés',
+            'Prestataires : hébergement, e-mail ou SMS, notifications push, analytique et outils de support sous garanties contractuelles',
+            'Autorités ou partenaires de sécurité : lorsque la loi l’exige ou pour enquêter sur la fraude, les articles interdits ou des violations graves de nos politiques',
+          ],
+        },
+        {
+          heading: '8. Transferts internationaux',
+          paragraphs: [
+            'Comme WWNGO prend en charge des livraisons transfrontalières, les données personnelles peuvent être traitées dans des pays autres que celui où vous résidez, notamment par Stripe, Sumsub et des prestataires d’infrastructure. Lorsque cela est requis, nous utilisons des garanties de transfert appropriées.',
+          ],
+        },
+        {
+          heading: '9. Conservation',
+          paragraphs: [
+            'Nous conservons les données personnelles uniquement aussi longtemps que nécessaire aux opérations de la place de marché, au support, au traitement des litiges, à la prévention de la fraude, à la comptabilité et à la conformité légale.',
+            'Les enregistrements de livraison, de séquestre, de versement et liés au KYC peuvent être conservés plus longtemps lorsque la loi l’exige ou pour résoudre des litiges. Lorsque les données ne sont plus nécessaires, nous les supprimons ou les anonymisons dans la mesure du possible.',
+          ],
+        },
+        {
+          heading: '10. Vos droits',
+          paragraphs: [
+            'Selon votre lieu de résidence, vous pouvez avoir le droit d’accéder à vos données, de les rectifier, de les supprimer, d’en limiter le traitement, de vous opposer à certains traitements, d’en demander la portabilité et de retirer votre consentement lorsque le traitement est fondé sur le consentement.',
+            'Vous pouvez demander la suppression de votre compte via la page Supprimer le compte de ce site ou en écrivant à support@wwngo.com. Nous pouvons vérifier votre identité avant d’agir, et certains enregistrements peuvent être conservés lorsque la loi ou la prévention de la fraude l’exige.',
+          ],
+        },
+        {
+          heading: '11. Mineurs',
+          paragraphs: [
+            'WWNGO est destiné aux utilisateurs âgés de 18 ans et plus. Nous ne collectons pas sciemment de données personnelles auprès de mineurs de moins de 18 ans. Si vous pensez qu’un mineur a créé un compte ou fourni des données, contactez support@wwngo.com afin que nous puissions les supprimer.',
+          ],
+        },
+        {
+          heading: '12. Cookies et technologies similaires',
+          paragraphs: [
+            'Le site vitrine peut utiliser des cookies essentiels tels que la préférence de langue et, lorsqu’ils sont configurés, des cookies d’analytique pour comprendre l’usage du site. Voir notre Politique de cookies pour plus de détails.',
+            'L’application mobile peut stocker l’état de connexion, des jetons de notification et des identifiants d’appareil nécessaires à l’authentification, à la messagerie et à la sécurité.',
+          ],
+        },
+        {
+          heading: '13. Modifications de cette politique',
+          paragraphs: [
+            'Nous pouvons mettre à jour cette Politique de confidentialité pour refléter des évolutions produit, juridiques ou opérationnelles. Les mises à jour importantes peuvent être présentées dans l’app, sur le site ou par e-mail le cas échéant. Continuer à utiliser WWNGO après une mise à jour signifie que vous prenez acte de la politique révisée.',
+          ],
+        },
+        {
+          heading: '14. Contact',
+          paragraphs: [
+            'Demandes de confidentialité et de données : support@wwngo.com',
+            'Demandes générales : info@wwngo.com',
+            'Les demandes de suppression de compte peuvent aussi être envoyées via /delete-account sur ce site.',
+          ],
         },
       ],
     },
     terms: {
       title: 'Conditions d’utilisation',
-      lead: 'Brouillon placeholder, remplacer par des conditions validées par un conseil juridique avant lancement.',
-      draftNotice: 'Ce document est un texte placeholder pour le site vitrine WWNGO et ne constitue pas un avis juridique.',
+      lead:
+        'Les présentes Conditions d’utilisation régissent votre accès et votre utilisation du site web WWNGO, de l’application mobile et de la place de marché qui met en relation Expéditeurs, Voyageurs et Destinataires pour la livraison internationale peer-to-peer de colis.',
+      draftNotice: '',
       lastUpdatedLabel: 'Dernière mise à jour',
-      lastUpdatedValue: '[Date placeholder]',
+      lastUpdatedValue: '',
       sections: [
         {
-          heading: 'Accord',
+          heading: '1. Acceptation des conditions',
           paragraphs: [
-            'En utilisant WWNGO, vous acceptez les règles du marché pour expéditeurs, voyageurs et destinataires. Les conditions finales seront présentées in-app à l’inscription.',
+            'En créant un compte, en téléchargeant l’app, en utilisant le site ou en participant à une livraison organisée via WWNGO, vous acceptez ces Conditions, ainsi que notre Politique de confidentialité, nos Règles de sécurité, la politique d’Articles interdits, la Politique de cookies et la Politique de remboursement.',
+            'Si vous n’êtes pas d’accord, n’utilisez pas WWNGO. Nous pouvons mettre à jour ces Conditions de temps à autre. Les mises à jour importantes peuvent être présentées dans l’app ou sur le site. Continuer à utiliser le service après une mise à jour signifie que vous acceptez les Conditions révisées.',
           ],
         },
         {
-          heading: 'Rôle de la plateforme',
+          heading: '2. À propos de WWNGO',
           paragraphs: [
-            'WWNGO fournit une plateforme d’appariement et de paiement. Les voyageurs sont des participants indépendants, pas des employés de WWNGO.',
+            'WWNGO est une place de marché peer-to-peer. Nous aidons les utilisateurs à trouver des correspondances, communiquer in-app, vérifier leur identité, conserver les paiements en séquestre, suivre les livraisons et confirmer les remises (y compris les checkpoints NFC lorsqu’ils sont disponibles).',
+            'WWNGO n’est pas un transporteur classique, une compagnie aérienne, un transitaire ou un courtier en douane. Nous ne prenons pas possession physique des colis en tant que transporteur. Les Voyageurs sont des utilisateurs indépendants, et non des employés, agents ou partenaires de WWNGO au sens d’une relation d’emploi.',
           ],
         },
         {
-          heading: 'Usage acceptable',
-          paragraphs: ['Les utilisateurs doivent respecter les politiques d’articles interdits, de sécurité et de conduite.'],
+          heading: '3. Éligibilité et comptes',
+          paragraphs: [],
+          list: [
+            'Vous devez avoir au moins 18 ans et être en mesure de conclure un contrat.',
+            'Vous devez fournir des informations d’inscription exactes et les maintenir à jour.',
+            'Vous êtes responsable de la protection de vos identifiants et de l’activité réalisée via votre compte.',
+            'Nous pouvons exiger une vérification e-mail, téléphone et d’identité (KYC via Sumsub) avant que vous puissiez envoyer, transporter ou recevoir des colis.',
+            'Une personne doit en principe conserver un seul compte, sauf autorisation expresse. Les comptes fictifs, en double ou partagés sont interdits.',
+          ],
+        },
+        {
+          heading: '4. Rôles des utilisateurs',
+          paragraphs: [
+            'Les utilisateurs peuvent agir en tant qu’Expéditeurs, Voyageurs, Destinataires, ou cumuler plusieurs rôles selon la transaction :',
+          ],
+          list: [
+            'Les Expéditeurs demandent la livraison d’un colis, fournissent des détails exacts, alimentent le séquestre lorsque requis et confirment la prise en charge.',
+            'Les Voyageurs proposent une capacité de voyage, n’acceptent que des colis qu’ils peuvent transporter légalement et en sécurité, les gardent protégés et confirment la prise en charge et la livraison.',
+            'Les Destinataires examinent les détails de livraison, se présentent au lieu convenu, inspectent le colis et confirment la réception ou ouvrent un litige si nécessaire.',
+          ],
+        },
+        {
+          heading: '5. Règles de la place de marché',
+          paragraphs: [
+            'Toutes les livraisons doivent être organisées et finalisées via les workflows WWNGO. Ne déplacez pas les paiements, négociations ou confirmations de remise en dehors de la plateforme.',
+            'Vous devez respecter nos Règles de sécurité et la politique d’Articles interdits, ainsi que les lois des compagnies aériennes, douanes, frontières et pays de destination. Les fausses descriptions de colis, articles interdits ou fausses confirmations de remise peuvent entraîner une suspension immédiate.',
+            'Les rendez-vous doivent être organisés avec soin. Privilégiez des lieux publics lorsque c’est possible, utilisez le chat in-app, et ne confirmez jamais un checkpoint NFC ou in-app pour une remise qui n’a pas eu lieu.',
+          ],
+        },
+        {
+          heading: '6. Paiements, séquestre et frais',
+          paragraphs: [
+            'Les paiements sont traités via Stripe. Les fonds de l’Expéditeur peuvent être conservés en séquestre jusqu’à confirmation de la livraison selon les règles du marché, après quoi les versements au Voyageur peuvent être libérés sous réserve de frais, de retenues, de litiges ou de contrôles de conformité.',
+            'WWNGO peut facturer des frais de service, de plateforme ou de traitement des paiements. Les frais applicables sont indiqués dans l’app avant confirmation d’une transaction. La disponibilité des devises et des options de versement peut varier selon la région.',
+            'Vous autorisez WWNGO et Stripe à traiter les prélèvements, remboursements, rétrofacturations et ajustements liés à votre usage du service. Vous êtes responsable des taxes applicables à votre activité lorsque la loi l’exige.',
+          ],
+        },
+        {
+          heading: '7. Annulations, litiges et remboursements',
+          paragraphs: [
+            'Les annulations, remises échouées, colis endommagés ou manquants et situations similaires doivent être signalés dès que possible via le processus de litige in-app. Les décisions dépendent du statut de confirmation, des preuves, des Règles de sécurité et de notre Politique de remboursement.',
+            'WWNGO peut suspendre la libération du séquestre, annuler ou retenir des versements, demander des informations supplémentaires ou faciliter un échange entre les parties. Ouvrir un litige ne garantit pas un remboursement. Voir la Politique de remboursement pour plus de détails.',
+          ],
+        },
+        {
+          heading: '8. Usage acceptable',
+          paragraphs: ['Vous vous engagez à ne pas :'],
+          list: [
+            'Envoyer, transporter ou demander des articles illégaux, dangereux, volés, contrefaits ou autrement interdits.',
+            'Falsifier votre identité, les détails de trajet, le contenu du colis, les photos, le poids, la valeur ou le statut de livraison.',
+            'Harceler, menacer ou tromper d’autres utilisateurs, ou tenter de contourner le KYC, le séquestre, le chat ou les fonctions de confirmation.',
+            'Extraire, désassembler, perturber ou surcharger le service, ou accéder à des comptes ou données sans autorisation.',
+            'Utiliser WWNGO pour le blanchiment d’argent, le contournement de sanctions ou toute finalité illégale.',
+          ],
+        },
+        {
+          heading: '9. Vérification et confiance',
+          paragraphs: [
+            'La vérification d’identité via Sumsub et d’autres contrôles aide à réduire la fraude, mais aucun système n’est parfait. Les utilisateurs restent responsables de leur prudence lors des rencontres et des remises de colis.',
+            'Les notes, avis et badges de vérification sont informatifs. WWNGO ne garantit pas la conduite, la ponctualité ou la conformité douanière d’un utilisateur.',
+          ],
+        },
+        {
+          heading: '10. Propriété intellectuelle',
+          paragraphs: [
+            'Le nom, le logo, l’app, le site et les contenus associés de WWNGO appartiennent à WWNGO ou à ses concédants. Vous recevez une licence limitée, non exclusive et non transférable pour utiliser le service conformément à sa finalité.',
+            'Vous conservez les droits sur les contenus que vous soumettez (photos de colis, messages de chat, etc.) et accordez à WWNGO une licence pour héberger, traiter et afficher ces contenus autant que nécessaire pour faire fonctionner la place de marché et faire respecter ces Conditions.',
+          ],
+        },
+        {
+          heading: '11. Services tiers',
+          paragraphs: [
+            'Le service s’appuie sur des tiers, notamment Stripe pour les paiements et Sumsub pour le KYC. Leurs conditions et pratiques de confidentialité s’appliquent aussi aux traitements qu’ils réalisent. Les stores d’applications (Google Play, Apple App Store) peuvent imposer des conditions supplémentaires pour le téléchargement de l’app.',
+          ],
+        },
+        {
+          heading: '12. Avertissements',
+          paragraphs: [
+            'WWNGO est fourni « en l’état » et « selon disponibilité ». Dans toute la mesure permise par la loi, nous déclinons les garanties de qualité marchande, d’adéquation à un usage particulier et d’absence de contrefaçon.',
+            'Nous ne garantissons pas une disponibilité ininterrompue, un matching sans erreur, un dédouanement réussi, ni que chaque utilisateur terminera une livraison comme prévu. Les voyages transfrontaliers et le transport de colis comportent des risques hors de notre contrôle.',
+          ],
+        },
+        {
+          heading: '13. Limitation de responsabilité',
+          paragraphs: [
+            'Dans toute la mesure permise par la loi, WWNGO et ses opérateurs ne sont pas responsables des dommages indirects, accessoires, spéciaux, consécutifs ou punitifs, ni des pertes de profits, de données ou de colis résultant de l’usage de la place de marché, de la conduite des utilisateurs, de perturbations de voyage, d’actions douanières ou d’un cas de force majeure.',
+            'Lorsque la responsabilité ne peut être exclue, notre responsabilité globale liée à votre usage de WWNGO est limitée au plus élevé entre (a) les frais que vous avez payés à WWNGO pour la transaction concernée au cours des trois mois précédant la réclamation, ou (b) 100 USD, sauf disposition contraire du droit applicable.',
+          ],
+        },
+        {
+          heading: '14. Indemnisation',
+          paragraphs: [
+            'Vous acceptez d’indemniser et de dégager WWNGO de toute responsabilité au titre des réclamations, pertes et frais (y compris les honoraires d’avocat raisonnables) résultant de votre mauvaise utilisation du service, de vos colis ou voyages, de votre violation de ces Conditions ou de la loi, ou de litiges entre vous et d’autres utilisateurs, compagnies aériennes ou autorités.',
+          ],
+        },
+        {
+          heading: '15. Suspension et résiliation',
+          paragraphs: [
+            'Vous pouvez cesser d’utiliser WWNGO à tout moment. Nous pouvons suspendre ou résilier l’accès, retenir des versements le temps d’une enquête, ou retirer du contenu en cas de violation de ces Conditions, de risque pour d’autres utilisateurs, d’échec de vérification, ou si la loi l’exige.',
+            'Les dispositions qui, par nature, doivent survivre (notamment les sommes dues, avertissements, limites de responsabilité, indemnisation et clauses de litige) demeurent après la résiliation.',
+          ],
+        },
+        {
+          heading: '16. Droit applicable',
+          paragraphs: [
+            'Ces Conditions sont régies par les lois applicables au lieu d’exploitation de WWNGO, sans égard aux règles de conflit de lois, sauf lorsque des protections impératives des consommateurs de votre pays s’appliquent. Les tribunaux de cette juridiction peuvent avoir compétence exclusive pour les litiges non résolus à l’amiable, sauf exigence contraire du droit applicable.',
+          ],
+        },
+        {
+          heading: '17. Contact',
+          paragraphs: [
+            'Questions sur ces Conditions : support@wwngo.com',
+            'Demandes générales : info@wwngo.com',
+          ],
         },
       ],
     },

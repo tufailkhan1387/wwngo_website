@@ -52,9 +52,17 @@ type Props = {
   centered?: boolean;
   crumb?: string;
   titleAccent?: string;
+  /** Hide the blue 01 / 02 section number circles */
+  hideSectionNumbers?: boolean;
 };
 
-export function LegalDocument({ copy, centered = false, crumb, titleAccent }: Props) {
+export function LegalDocument({
+  copy,
+  centered = false,
+  crumb,
+  titleAccent,
+  hideSectionNumbers = false,
+}: Props) {
   const { t } = useLanguage();
 
   if (!centered) {
@@ -116,11 +124,17 @@ export function LegalDocument({ copy, centered = false, crumb, titleAccent }: Pr
       <section className="home-panel home-panel--white legal-body" aria-label={`${copy.title} content`}>
         <div className="legal-body__inner">
           {copy.sections.map((section, index) => (
-            <Reveal key={section.heading} delay={Math.min(index * 0.04, 0.2)} className="legal-section">
+            <Reveal
+              key={section.heading}
+              delay={Math.min(index * 0.04, 0.2)}
+              className={`legal-section${hideSectionNumbers ? ' legal-section--plain' : ''}`}
+            >
               <div className="legal-section__head">
-                <span className="legal-section__num" aria-hidden="true">
-                  {String(index + 1).padStart(2, '0')}
-                </span>
+                {hideSectionNumbers ? null : (
+                  <span className="legal-section__num" aria-hidden="true">
+                    {String(index + 1).padStart(2, '0')}
+                  </span>
+                )}
                 <h2 className="legal-section__title">{section.heading.replace(/^\d+\.\s*/, '')}</h2>
               </div>
               {section.paragraphs

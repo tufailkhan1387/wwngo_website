@@ -108,15 +108,35 @@ export async function sumsubRequest(method, pathWithQuery, { body } = {}) {
   }
 
   if (!response.ok) {
-    const message =
-      data?.description ||
-      data?.errorName ||
-      data?.message ||
-      `Sumsub request failed (${response.status})`;
+    const description = data?.description || data?.errorName || data?.message || '';
+    const errorName = String(data?.errorName || '').toLowerCase();
+
+    if (errorName === 'app-token-disabled' || /app token is disabled/i.test(description)) {
+      throw new AppError(
+        'Identity verification is temporarily unavailable. The Sumsub App Token has been disabled — please re-enable it in the Sumsub dashboard (Settings → App Tokens) or generate a new one and update SUMSUB_APP_TOKEN in the server .env file.',
+        503,
+        'SUMSUB_APP_TOKEN_DISABLED'
+      );
+    }
+
+    const message = description || `Sumsub request failed (${response.status})`;
     throw new AppError(message, response.status >= 500 ? 502 : 400, 'SUMSUB_API_ERROR');
   }
 
   return data;
+}
+
+export async function checkAppTokenHealth() {
+  try {
+    await sumsubRequest('GET', '/resources/applicants/-;externalUserId=healthcheck-probe/one');
+    return { ok: true };
+  } catch (err) {
+    const status = err.statusCode ?? err.status;
+    if (status === 404) {
+      return { ok: true };
+    }
+    return { ok: false, error: err.message, code: err.code };
+  }
 }
 
 export async function createSdkAccessToken({

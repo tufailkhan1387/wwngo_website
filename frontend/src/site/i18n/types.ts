@@ -101,6 +101,7 @@ export type TranslationTree = {
     safetyRules: string;
     prohibited: string;
     refund: string;
+    deleteAccount: string;
     socialPlaceholder: string;
   };
   home: {
@@ -245,6 +246,31 @@ export type TranslationTree = {
     officeTitle: string;
     phoneLabel: string;
     phonePlaceholder: string;
+  };
+  deleteAccount: {
+    title: string;
+    lead: string;
+    formTitle: string;
+    formLead: string;
+    stepsTitle: string;
+    steps: StepItem[];
+    dataTitle: string;
+    dataDeletedIntro: string;
+    dataDeleted: string[];
+    dataRetainedIntro: string;
+    dataRetained: string[];
+    processingNote: string;
+    emailLabel: string;
+    emailHint: string;
+    nameLabel: string;
+    phoneLabel: string;
+    phoneOptional: string;
+    reasonLabel: string;
+    reasonPlaceholder: string;
+    confirmLabel: string;
+    submit: string;
+    success: string;
+    error: string;
   };
   download: {
     title: string;

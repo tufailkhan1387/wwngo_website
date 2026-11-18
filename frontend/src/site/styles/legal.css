@@ -109,3 +109,12 @@
 .legal-section__list li:last-child {
   margin-bottom: 0;
 }
+
+.legal-section--plain .legal-section__p,
+.legal-section--plain .legal-section__list {
+  margin-left: 0;
+}
+
+.legal-section--plain .legal-section__title {
+  margin-top: 0;
+}

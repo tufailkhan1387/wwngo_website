@@ -23,12 +23,14 @@ import nfcRoutes from './routes/nfc.routes.js';
 import meetupRoutes from './routes/meetup.routes.js';
 import trackingRoutes from './routes/tracking.routes.js';
 import contactRoutes from './routes/contact.routes.js';
+import deleteAccountRoutes from './routes/delete-account.routes.js';
 import { errorHandler, notFoundHandler } from './middleware/errorHandler.js';
 import { UPLOADS_ROOT } from './services/delivery.service.js';
 import { initSocketServer } from './services/socket_hub.js';
 import { startTimerWorker } from './services/timer.service.js';
 import * as stripeService from './services/stripe.service.js';
 import { connectReturnPage } from './routes/connect_return.js';
+import { checkAppTokenHealth } from './services/sumsub.client.js';
 
 trustSystemCertificates();
 
@@ -103,6 +105,7 @@ app.get('/api/health', async (_req, res) => {
   }
 });
 app.use('/api/contact', contactRoutes);
+app.use('/api/delete-account', deleteAccountRoutes);
 
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/kyc', kycRoutes);
@@ -169,6 +172,21 @@ async function startServer() {
     console.log('Firebase push notifications enabled.');
   } else {
     console.warn('FCM: set FCM_SERVICE_ACCOUNT_PATH in .env for push delivery.');
+  }
+
+  if (env.sumsub.appToken && env.sumsub.secretKey) {
+    const health = await checkAppTokenHealth();
+    if (health.ok) {
+      console.log(`Sumsub KYC enabled (${env.sumsub.sandbox ? 'sandbox' : 'production'} token).`);
+    } else {
+      console.error(
+        `Sumsub KYC NOT available: ${health.error} ` +
+        `[${health.code}]. Re-enable the App Token in the Sumsub dashboard ` +
+        `(Settings → App Tokens) or update SUMSUB_APP_TOKEN / SUMSUB_SECRET_KEY in .env.`
+      );
+    }
+  } else {
+    console.warn('Sumsub: SUMSUB_APP_TOKEN / SUMSUB_SECRET_KEY not set — KYC unavailable.');
   }
 
   httpServer.listen(env.port, env.host, () => {

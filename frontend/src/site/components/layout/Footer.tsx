@@ -154,6 +154,9 @@ export function Footer() {
                 <li>
                   <Link to="/legal/cookies">{t.footer.cookies}</Link>
                 </li>
+                <li>
+                  <Link to="/delete-account">{t.footer.deleteAccount}</Link>
+                </li>
               </ul>
             </div>
 
@@ -194,6 +197,7 @@ export function Footer() {
             <Link to="/legal/safety-rules">{t.footer.safetyRules}</Link>
             <Link to="/legal/prohibited">{t.footer.prohibited}</Link>
             <Link to="/legal/refund">{t.footer.refund}</Link>
+            <Link to="/delete-account">{t.footer.deleteAccount}</Link>
           </div>
           <LangSwitch />
         </div>
